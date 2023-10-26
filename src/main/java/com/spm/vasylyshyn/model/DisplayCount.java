@@ -1,6 +1,7 @@
 package com.spm.vasylyshyn.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,8 @@ public class DisplayCount {
     private LocalDateTime createdDate;
 
     @ManyToOne
-    @JoinColumn(name = "device_id", nullable = false)
+    @JoinColumn(name="device_id", nullable=false)
+    @JsonIgnore
     private Device device;
 
     @PrePersist

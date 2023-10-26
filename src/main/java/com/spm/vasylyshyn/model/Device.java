@@ -2,6 +2,7 @@ package com.spm.vasylyshyn.model;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spm.vasylyshyn.enums.CType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,7 +32,7 @@ public class Device {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User owner;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "device")
+    @OneToMany(mappedBy="device")
     private List<DisplayCount> displayCounts = new ArrayList<>();
 
     @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")

@@ -7,6 +7,8 @@ import com.spm.vasylyshyn.repository.DeviceRepository;
 import com.spm.vasylyshyn.repository.DisplayCountRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DisplayCountService {
     private final DisplayCountRepository displayCountRepository;
@@ -24,4 +26,14 @@ public class DisplayCountService {
         displayCount.setDevice(device);
         displayCountRepository.save(displayCount);
     }
+
+    public List<DisplayCount> getDisplayCountsByDeviceNumber(Long deviceNumber) {
+        Device device = deviceRepository.findDeviceByNumberOfDevice(deviceNumber).orElse(null);
+        return displayCountRepository.findDisplayCountsByDevice(device).orElse(null);
+    }
+
+    public List<DisplayCount> getAllDisplays() {
+        return displayCountRepository.findAll();
+    }
+
 }

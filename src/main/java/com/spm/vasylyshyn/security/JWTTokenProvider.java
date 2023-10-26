@@ -2,8 +2,8 @@ package com.spm.vasylyshyn.security;
 
 
 
-import com.spm.vasylyshyn.repository.UserRepository;
 import com.spm.vasylyshyn.model.User;
+import com.spm.vasylyshyn.repository.UserRepository;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,8 +33,6 @@ public class JWTTokenProvider {
         Map<String, Object> claimsMap = new HashMap<>();
         claimsMap.put("id", userId);
         claimsMap.put("username", user.getEmail());
-        claimsMap.put("name", user.getUsername());
-        claimsMap.put("avatarId", user.getAvatarId());
         claimsMap.put("authories", authentication.getAuthorities());
         return Jwts.builder().setSubject(userId).setClaims(claimsMap).setIssuedAt(now)
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET).compact();

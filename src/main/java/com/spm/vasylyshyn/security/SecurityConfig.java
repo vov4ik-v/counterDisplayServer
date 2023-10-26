@@ -1,6 +1,8 @@
 package com.spm.vasylyshyn.security;
 
 
+
+import com.spm.vasylyshyn.enums.ERole;
 import com.spm.vasylyshyn.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -34,8 +36,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeRequests()
-                .antMatchers("/api/user","/api/user/**").authenticated().anyRequest().permitAll();
+                .authorizeRequests().antMatchers("/api/admin","/api/admin/**").hasAuthority(ERole.ADMIN.name())
+                .antMatchers("/ws/info","/ws/**","/ws","/api/user/forgot","/api/user/forgot/**",
+                SecurityConstants.SIGN_UP_URLS,SecurityConstants.NEWS_URLS,SecurityConstants.EMAIL_URLS
+                        ,SecurityConstants.CAR_URLS,SecurityConstants.MODEL_URLS).permitAll()
+                .anyRequest()
+                .authenticated();
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
