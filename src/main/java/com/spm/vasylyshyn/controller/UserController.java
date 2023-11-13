@@ -2,6 +2,9 @@ package com.spm.vasylyshyn.controller;
 
 
 
+import com.spm.vasylyshyn.common.ApiResponse;
+import com.spm.vasylyshyn.dto.DeviceDto;
+import com.spm.vasylyshyn.model.Device;
 import com.spm.vasylyshyn.validations.ResponseErrorValidation;
 import com.spm.vasylyshyn.dto.UserDto;
 import com.spm.vasylyshyn.facade.UserFacade;
@@ -52,6 +55,11 @@ public class UserController {
         return new ResponseEntity<>(usersDTO, HttpStatus.OK);
     }
 
+    @GetMapping("/getDevicesForCurrentUser")
+    public ResponseEntity<List<DeviceDto>> getDevicesForCurrentUser(Principal principal){
+        List<DeviceDto> deviceDtoList = userService.getDeviceForCurrentUser(principal);
+        return new ResponseEntity<>(deviceDtoList,HttpStatus.OK);
+    }
 
     @GetMapping("/{username}")
     public ResponseEntity<UserDto> getUserProfile(@PathVariable("username") String username ){
@@ -77,6 +85,11 @@ public class UserController {
         UserDto userUpdated = userFacade.userToUserDTO(user);
         return new ResponseEntity<>(userUpdated, HttpStatus.OK);
     }
+
+    //    @PostMapping("/addDeviceToUser")
+    //    public ResponseEntity<ApiResponse> getDeviceToUser(@RequestParam("device_number") Long deviceNumber, @RequestParam("device_password") String password){
+    //
+    //    }
 
 
 

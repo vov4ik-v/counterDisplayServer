@@ -20,6 +20,8 @@ public class DeviceService {
         Device device = new Device();
         device.setNumberOfDevice(deviceDto.getNumberOfDevice());
         device.setPrice(deviceDto.getPrice());
+        device.setAddress(deviceDto.getAddress());
+        device.setFrequency(deviceDto.getFrequency());
         device.setCantoraName(deviceDto.getCantoraName());
         device.setCounterType(deviceDto.getCounterType());
         deviceRepository.save(device);

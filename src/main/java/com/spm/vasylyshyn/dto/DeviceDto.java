@@ -16,7 +16,11 @@ import java.util.List;
 public class DeviceDto {
     private Long numberOfDevice;
     private String cantoraName;
+    private List<DisplayCount> displayCounts;
+    private String address;
+    private Long frequency;
     private CType counterType;
     private Integer price;
+    private String createdDate;
 
 }

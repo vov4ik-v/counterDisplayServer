@@ -14,18 +14,13 @@ public class DeviceFacade {
         DeviceDto deviceDto = new DeviceDto();
         deviceDto.setNumberOfDevice(device.getNumberOfDevice());
         deviceDto.setPrice(device.getPrice());
+        deviceDto.setAddress(device.getAddress());
+        deviceDto.setDisplayCounts(device.getDisplayCounts());
+        deviceDto.setFrequency(device.getFrequency());
         deviceDto.setCounterType(device.getCounterType());
         deviceDto.setCantoraName(device.getCantoraName());
+        deviceDto.setCreatedDate(device.getCreatedDate());
 
         return deviceDto;
-    }
-
-    public UserDto userToUserDTO(User user){
-        UserDto userDTO = new UserDto();
-        userDTO.setId(user.getId());
-        userDTO.setUsername(user.getUsername());
-        userDTO.setAvatarId(user.getAvatarId());
-
-        return userDTO;
     }
 }

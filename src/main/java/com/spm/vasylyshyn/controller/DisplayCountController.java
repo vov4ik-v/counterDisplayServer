@@ -35,8 +35,8 @@ public class DisplayCountController {
 
     }
 
-    @PostMapping("add")
-    public ResponseEntity<ApiResponse> registerDevice(@RequestBody DisplayCountDto displayCountDto, @RequestParam("device_id") Long deviceId){
+    @PostMapping("addDisplayCount")
+    public ResponseEntity<ApiResponse> addDisplayCount(@RequestBody DisplayCountDto displayCountDto, @RequestParam("device_id") Long deviceId){
         displayCountService.addDisplayCount(displayCountDto,deviceId);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

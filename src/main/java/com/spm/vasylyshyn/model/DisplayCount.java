@@ -8,6 +8,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Locale;
 
 @Entity
 @Data
@@ -21,18 +26,28 @@ public class DisplayCount {
 
     private Long displayCount;
 
-    @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
-    @Column(updatable = false)
-    private LocalDateTime createdDate;
 
     @ManyToOne
     @JoinColumn(name="device_id", nullable=false)
     @JsonIgnore
     private Device device;
 
+    @Column(updatable = false)
+    private String createdDate;
+
     @PrePersist
     protected void onCreate(){
-        this.createdDate = LocalDateTime.now();
+        createdDate =  ZonedDateTime
+                .now(
+                        ZoneId.of( "Europe/Bucharest" )
+                )
+                .format(
+                        DateTimeFormatter
+                                .ofLocalizedDateTime( FormatStyle.SHORT )
+                                .withLocale(
+                                        new Locale( "ro" , "RO" )   // Romanian in Romania.
+                                )
+                );
 
     }
 

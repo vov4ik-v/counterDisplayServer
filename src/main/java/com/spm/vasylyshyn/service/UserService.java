@@ -1,7 +1,10 @@
 package com.spm.vasylyshyn.service;
 
 
+import com.spm.vasylyshyn.dto.DeviceDto;
 import com.spm.vasylyshyn.exeptions.UserExistException;
+import com.spm.vasylyshyn.facade.DeviceFacade;
+import com.spm.vasylyshyn.model.Device;
 import com.spm.vasylyshyn.repository.UserRepository;
 import com.spm.vasylyshyn.dto.UserDto;
 import com.spm.vasylyshyn.enums.ERole;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -23,11 +27,13 @@ public class UserService {
 
 
     private final UserRepository userRepository;
+    private final DeviceFacade deviceFacade;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, DeviceFacade deviceFacade, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.deviceFacade = deviceFacade;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -37,7 +43,8 @@ public class UserService {
 
     public User createUser(SignupRequest userIn) {
         User user = new User();
-        user.setEmail(userIn.getEmail());
+        int[] arr = new int[10];
+        user.setEmail(userIn.getEmail() );
         user.setUsername(userIn.getUsername());
         user.setAvatarId(1);
         user.setPassword(passwordEncoder.encode(userIn.getPassword()));
@@ -85,4 +92,9 @@ public class UserService {
     }
 
 
+    public List<DeviceDto> getDeviceForCurrentUser(Principal principal) {
+        User user = getUserByPrincipal(principal);
+        List<Device> devices = user.getDeviceList();
+        return devices.stream().map(deviceFacade::deviceToDeviceDTO).collect(Collectors.toList());
+    }
 }

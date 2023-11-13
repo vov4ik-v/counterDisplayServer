@@ -37,11 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests().antMatchers("/api/admin","/api/admin/**").hasAuthority(ERole.ADMIN.name())
-                .antMatchers("/ws/info","/ws/**","/ws","/api/user/forgot","/api/user/forgot/**",
-                SecurityConstants.SIGN_UP_URLS,SecurityConstants.NEWS_URLS,SecurityConstants.EMAIL_URLS
-                        ,SecurityConstants.CAR_URLS,SecurityConstants.MODEL_URLS).permitAll()
-                .anyRequest()
-                .authenticated();
+                .anyRequest().permitAll();
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
