@@ -11,6 +11,7 @@ import com.spm.vasylyshyn.payload.MessageResponse;
 import com.spm.vasylyshyn.security.JWTTokenProvider;
 import com.spm.vasylyshyn.security.SecurityConstants;
 import com.spm.vasylyshyn.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,6 +27,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 
 @CrossOrigin
 @RestController
@@ -63,9 +65,6 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = SecurityConstants.TOKEN_PREFIX + jwtTokenProvider.generateToken(authentication);
         return ResponseEntity.ok(new JWTTokenSuccessResponse(true, jwt));
-
-
-
     }
 
     @PostMapping("/signup")
@@ -84,6 +83,11 @@ public class AuthController {
         }
         return ResponseEntity.ok(new MessageResponse("User registreted successfully"));
 
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(Principal principal){
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

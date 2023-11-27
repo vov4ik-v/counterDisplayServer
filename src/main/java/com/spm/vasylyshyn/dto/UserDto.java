@@ -9,7 +9,8 @@ import lombok.Data;
 public class UserDto {
 
     private Long id;
-    private Integer avatarId;
     private String username;
+    private String phoneNumber;
+    private String email;
 }
 

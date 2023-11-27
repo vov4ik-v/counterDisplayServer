@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/display_count/")
 public class DisplayCountController {
     private final DisplayCountService displayCountService;

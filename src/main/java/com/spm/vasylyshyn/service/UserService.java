@@ -1,10 +1,13 @@
 package com.spm.vasylyshyn.service;
 
 
+import com.spm.vasylyshyn.common.ApiResponse;
 import com.spm.vasylyshyn.dto.DeviceDto;
+import com.spm.vasylyshyn.enums.CType;
 import com.spm.vasylyshyn.exeptions.UserExistException;
 import com.spm.vasylyshyn.facade.DeviceFacade;
 import com.spm.vasylyshyn.model.Device;
+import com.spm.vasylyshyn.repository.DeviceRepository;
 import com.spm.vasylyshyn.repository.UserRepository;
 import com.spm.vasylyshyn.dto.UserDto;
 import com.spm.vasylyshyn.enums.ERole;
@@ -27,14 +30,18 @@ public class UserService {
 
 
     private final UserRepository userRepository;
+    private final DeviceRepository deviceRepository;
     private final DeviceFacade deviceFacade;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final DeviceService deviceService;
 
     @Autowired
-    public UserService(UserRepository userRepository, DeviceFacade deviceFacade, BCryptPasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, DeviceRepository deviceRepository, DeviceFacade deviceFacade, BCryptPasswordEncoder passwordEncoder, DeviceService deviceService) {
         this.userRepository = userRepository;
+        this.deviceRepository = deviceRepository;
         this.deviceFacade = deviceFacade;
         this.passwordEncoder = passwordEncoder;
+        this.deviceService = deviceService;
     }
 
     public List<User> getAllUser() {
@@ -65,7 +72,7 @@ public class UserService {
     public User updateUser(UserDto userDTO, Principal principal) {
         User user = getUserByPrincipal(principal);
         user.setUsername(userDTO.getUsername());
-        user.setAvatarId(userDTO.getAvatarId());
+        user.setPhoneNumber(userDTO.getPhoneNumber());
         return userRepository.save(user);
 
     }
@@ -96,5 +103,25 @@ public class UserService {
         User user = getUserByPrincipal(principal);
         List<Device> devices = user.getDeviceList();
         return devices.stream().map(deviceFacade::deviceToDeviceDTO).collect(Collectors.toList());
+    }
+
+    public ApiResponse addDeviceToUser(Long deviceNumber, CType deviceType, String address, String password, Principal principal) {
+        User user = getUserByPrincipal(principal);
+        Device device = deviceService.getDeviceByNumber(deviceNumber);
+        if (device.getPassword().equals(password)){
+            device.setAddress(address);
+            device.setCounterType(deviceType);
+            device.setOwner(user);
+            user.getDeviceList().add(device);
+            userRepository.save(user);
+            deviceRepository.save(device);
+
+            return new ApiResponse(true,"Device added successfully");
+        }
+        else{
+            return new ApiResponse(true,"Please write correct number or password");
+        }
+
+
     }
 }
