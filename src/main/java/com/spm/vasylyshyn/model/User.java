@@ -27,6 +27,11 @@ public class User implements UserDetails {
     private Integer avatarId;
     @Column(length = 3000)
     private String password;
+
+
+    @Embedded
+    private Address address;
+
     @ElementCollection(targetClass = ERole.class,fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     private Set<ERole> roles = new HashSet<>();

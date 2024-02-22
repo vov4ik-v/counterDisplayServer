@@ -13,7 +13,8 @@ public class UserFacade {
         userDTO.setId(user.getId());
         userDTO.setUsername(user.getUsername());
         userDTO.setPhoneNumber(user.getPhoneNumber());
-        userDTO.setEmail(userDTO.getEmail());
+        userDTO.setAddress(user.getAddress());
+        userDTO.setEmail(user.getEmail());
 
         return userDTO;
     }

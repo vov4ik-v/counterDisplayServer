@@ -72,6 +72,7 @@ public class UserService {
     public User updateUser(UserDto userDTO, Principal principal) {
         User user = getUserByPrincipal(principal);
         user.setUsername(userDTO.getUsername());
+        user.setAddress(userDTO.getAddress());
         user.setPhoneNumber(userDTO.getPhoneNumber());
         return userRepository.save(user);
 
