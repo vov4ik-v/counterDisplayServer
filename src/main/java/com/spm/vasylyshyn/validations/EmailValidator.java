@@ -17,7 +17,6 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
 
     @Override
     public void initialize(ValidEmail constraintAnnotation) {
-
     }
 
     @Override
