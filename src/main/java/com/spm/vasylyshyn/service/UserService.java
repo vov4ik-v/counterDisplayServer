@@ -99,12 +99,19 @@ public class UserService {
         return userRepository.findUserById(userId).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
     }
 
+    public UserDto getUserDtoById(Long id){
+        return userRepository.findDtoUserById(id).orElseThrow(()->new UsernameNotFoundException("User by id: " + id + " not found"  ));
+    }
+
+
+
 
     public List<DeviceDto> getDeviceForCurrentUser(Principal principal) {
         User user = getUserByPrincipal(principal);
         List<Device> devices = user.getDeviceList();
         return devices.stream().map(deviceFacade::deviceToDeviceDTO).collect(Collectors.toList());
     }
+
 
     public ApiResponse addDeviceToUser(Long deviceNumber, CType deviceType, String address, String password, Principal principal) {
         User user = getUserByPrincipal(principal);
