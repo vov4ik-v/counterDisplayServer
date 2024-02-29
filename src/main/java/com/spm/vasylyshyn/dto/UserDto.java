@@ -16,6 +16,8 @@ public class UserDto {
 
     private Long id;
     private String username;
+    private String firstName;
+    private String lastName;
     @ValidPhoneNumber
     private String phoneNumber;
     private String email;
