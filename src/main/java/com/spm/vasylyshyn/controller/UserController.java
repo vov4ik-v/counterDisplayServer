@@ -46,10 +46,8 @@ public class UserController {
 
     @GetMapping("/")
     public ResponseEntity<UserDto> getCurrentUser(Principal principal){
-
-        User user = userService.getCurrentUser(principal);
-        UserDto userDTO = userFacade.userToUserDTO(user);
-        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+        UserDto userDto = userService.getCurrentUserDto(principal);
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
     @GetMapping("/allUser")
     public ResponseEntity<List<UserDto>> getAllUsers(){

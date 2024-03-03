@@ -83,12 +83,19 @@ public class UserService {
         return getUserByPrincipal(principal);
     }
 
+    public UserDto getCurrentUserDto(Principal principal){
+        return getUserDtoByPrincipal(principal);
+    }
+
+    private UserDto getUserDtoByPrincipal(Principal principal){
+        String username = principal.getName();
+        return userRepository.findDtoUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found with username " + username));
+    }
+
     private User getUserByPrincipal(Principal principal) {
         String username = principal.getName();
-        User user =  userRepository.findUserByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Username not found with username " + username));
-        System.out.println(user.getAuthorities());
-        return user;
+        return userRepository.findUserByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username " + username));
     }
 
     public User getUserByUsername(String username) {
