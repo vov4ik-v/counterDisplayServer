@@ -53,6 +53,8 @@ public class UserService {
         int[] arr = new int[10];
         user.setEmail(userIn.getEmail() );
         user.setUsername(userIn.getUsername());
+        user.setFirstName(userIn.getFirstname());
+        user.setLastName(userIn.getLastname());
         user.setAvatarId(1);
         user.setPassword(passwordEncoder.encode(userIn.getPassword()));
         user.getRoles().add(ERole.USER);
