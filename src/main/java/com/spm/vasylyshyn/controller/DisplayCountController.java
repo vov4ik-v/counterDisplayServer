@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -23,10 +24,17 @@ public class DisplayCountController {
     }
 
     @GetMapping("getDisplayCountsByDeviceNumber/{deviceNumber}")
-    public ResponseEntity<List<DisplayCount>> getDeviceByNumber(@PathVariable("deviceNumber") Long deviceNumber){
-        List<DisplayCount> displayCounts = displayCountService.getDisplayCountsByDeviceNumber(deviceNumber);
-        return new ResponseEntity<>(displayCounts,HttpStatus.OK);
+    public ResponseEntity<List<DisplayCountDto>> getDisplayCountsByDeviceNumber(@PathVariable("deviceNumber") Long deviceNumber){
+        List<DisplayCountDto> displayCountsDto = displayCountService.getDisplayCountsDtoByDeviceNumber(deviceNumber);
+        return new ResponseEntity<>(displayCountsDto,HttpStatus.OK);
+    }
 
+
+    @GetMapping("getLastCollectedDisplayCount/{deviceNumber}")
+    public ResponseEntity<DisplayCountDto> getLastCollectedDisplayCount(@PathVariable("deviceNumber") Long deviceNumber){
+//        DisplayCount displayCount = displayCountService.getLastCollectedDisplayCount(deviceNumber);
+//        DisplayCountDto displayCountDto = DisplayCountDto.builder().id(displayCount.getId()).displayCount(displayCount.getDisplayCount()).build();
+        return new ResponseEntity<>(displayCountService.getLastCollectedDisplayCount(deviceNumber),HttpStatus.OK);
     }
 
     @GetMapping("getAllDisplayCounts")
@@ -40,5 +48,16 @@ public class DisplayCountController {
     public ResponseEntity<ApiResponse> addDisplayCount(@RequestBody DisplayCountDto displayCountDto, @RequestParam("device_id") Long deviceId){
         displayCountService.addDisplayCount(displayCountDto,deviceId);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+
+
+    @GetMapping("getInRange/{deviceNumber}")
+    public ResponseEntity<List<DisplayCount>> getDisplayCountsInDateRange(@PathVariable("deviceNumber") Long deviceNumber,
+                                                                          @RequestParam("startRange") LocalDateTime startRange,
+                                                                          @RequestParam("endRange")LocalDateTime endRange
+    ){
+        List<DisplayCount> allDisplayCountsInRange = displayCountService.findAllDisplayCountsInRange(deviceNumber,startRange,endRange);
+        return new ResponseEntity<>(allDisplayCountsInRange,HttpStatus.OK);
     }
 }
