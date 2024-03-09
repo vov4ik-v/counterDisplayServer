@@ -19,7 +19,7 @@ public class DeviceFacade {
         deviceDto.setFrequency(device.getFrequency());
         deviceDto.setCounterType(device.getCounterType());
         deviceDto.setCantoraName(device.getCantoraName());
-        deviceDto.setCreatedDate(device.getCreatedDate());
+
 
         return deviceDto;
     }

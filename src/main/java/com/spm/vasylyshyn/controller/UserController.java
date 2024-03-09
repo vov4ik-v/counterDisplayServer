@@ -51,7 +51,7 @@ public class UserController {
     }
     @GetMapping("/allUser")
     public ResponseEntity<List<UserDto>> getAllUsers(){
-        List<UserDto> usersDTO = userService.getAllUser().stream().map(userFacade::userToUserDTO).collect(Collectors.toList());
+        List<UserDto> usersDTO = userService.getAllUserDto();
         return new ResponseEntity<>(usersDTO, HttpStatus.OK);
     }
 
@@ -63,9 +63,8 @@ public class UserController {
 
     @GetMapping("/{username}")
     public ResponseEntity<UserDto> getUserProfile(@PathVariable("username") String username ){
-        User user = userService.getUserByUsername(username);
-        UserDto userDTO = userFacade.userToUserDTO(user);
-        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+        UserDto userDto = userService.getUserDtoByUsername(username);
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
 
     }
     @GetMapping("/byId/{id}")
@@ -89,7 +88,8 @@ public class UserController {
         public ResponseEntity<ApiResponse> addDeviceToUser(@RequestBody RegisterDeviceRequest registerDeviceRequest, Principal principal){
            ApiResponse response =  userService.addDeviceToUser(registerDeviceRequest.getDeviceNumber()
                    ,registerDeviceRequest.getDeviceType(),registerDeviceRequest.getAddress()
-                   ,registerDeviceRequest.getPassword(),principal);
+//                   ,registerDeviceRequest.getPassword()
+                   ,principal);
            return new ResponseEntity<>(response,HttpStatus.OK);
         }
 

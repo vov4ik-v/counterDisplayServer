@@ -7,6 +7,7 @@ import com.spm.vasylyshyn.repository.DeviceRepository;
 import com.spm.vasylyshyn.repository.DisplayCountRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -27,13 +28,22 @@ public class DisplayCountService {
         displayCountRepository.save(displayCount);
     }
 
-    public List<DisplayCount> getDisplayCountsByDeviceNumber(Long deviceNumber) {
+    public List<DisplayCountDto> getDisplayCountsDtoByDeviceNumber(Long deviceNumber) {
         Device device = deviceRepository.findDeviceByNumberOfDevice(deviceNumber).orElse(null);
-        return displayCountRepository.findDisplayCountsByDevice(device).orElse(null);
+        return displayCountRepository.findDisplayCountsDtoByDevice(device).orElse(null);
     }
 
     public List<DisplayCount> getAllDisplays() {
         return displayCountRepository.findAll();
     }
 
+    public DisplayCountDto getLastCollectedDisplayCount(Long deviceNumber) {
+        Device device = deviceRepository.findDeviceByNumberOfDevice(deviceNumber).orElseThrow();
+        return displayCountRepository.findDto(device).orElseThrow(()-> new RuntimeException(""));
+    }
+
+    public List<DisplayCount> findAllDisplayCountsInRange(Long deviceNumber,LocalDateTime startRange,LocalDateTime endRange) {
+        Device device = deviceRepository.findDeviceByNumberOfDevice(deviceNumber).orElseThrow();
+        return displayCountRepository.findDisplayCountsByDeviceAndCreatedDateGreaterThanEqualAndCreatedDateLessThanEqual(device,startRange,endRange);
+    }
 }

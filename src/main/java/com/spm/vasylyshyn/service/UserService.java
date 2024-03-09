@@ -21,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -91,7 +92,7 @@ public class UserService {
 
     private UserDto getUserDtoByPrincipal(Principal principal){
         String username = principal.getName();
-        return userRepository.findDtoUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found with username " + username));
+        return userRepository.findUserDtoByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found with username " + username));
     }
 
     private User getUserByPrincipal(Principal principal) {
@@ -103,6 +104,9 @@ public class UserService {
     public User getUserByUsername(String username) {
         return userRepository.findUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
     }
+    public UserDto getUserDtoByUsername(String username){
+       return userRepository.findUserDtoByUsername(username).orElseThrow();
+    }
 
     public User getUserById(Long userId) {
         return userRepository.findUserById(userId).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
@@ -113,6 +117,11 @@ public class UserService {
     }
 
 
+    public List<UserDto> getAllUserDto(){
+        return userRepository.findAllUsersDto().orElseThrow();
+
+    }
+
 
 
     public List<DeviceDto> getDeviceForCurrentUser(Principal principal) {
@@ -121,11 +130,13 @@ public class UserService {
         return devices.stream().map(deviceFacade::deviceToDeviceDTO).collect(Collectors.toList());
     }
 
-
-    public ApiResponse addDeviceToUser(Long deviceNumber, CType deviceType, String address, String password, Principal principal) {
+// Затичка, після міграції переробити
+    public ApiResponse addDeviceToUser(Long deviceNumber, CType deviceType, String address,
+//                                       String password,
+                                       Principal principal) {
         User user = getUserByPrincipal(principal);
-        Device device = deviceService.getDeviceByNumber(deviceNumber);
-        if (device.getPassword().equals(password)){
+        Device device = deviceService.registerDevice(new DeviceDto(deviceNumber,"",null,address,0L,deviceType,0));
+//        if (device.getPassword().equals(password)){
             device.setAddress(address);
             device.setCounterType(deviceType);
             device.setOwner(user);
@@ -134,10 +145,10 @@ public class UserService {
             deviceRepository.save(device);
 
             return new ApiResponse(true,"Device added successfully");
-        }
-        else{
-            return new ApiResponse(true,"Please write correct number or password");
-        }
+//        }
+//        else{
+//            return new ApiResponse(true,"Please write correct number or password");
+//        }
 
 
     }

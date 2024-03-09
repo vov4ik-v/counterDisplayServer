@@ -25,7 +25,7 @@ public class DeviceService {
         this.deviceRepository = deviceRepository;
     }
 
-    public void registerDevice(DeviceDto deviceDto){
+    public Device registerDevice(DeviceDto deviceDto){
         Device device = new Device();
         device.setNumberOfDevice(deviceDto.getNumberOfDevice());
         device.setPrice(deviceDto.getPrice());
@@ -33,14 +33,14 @@ public class DeviceService {
         device.setFrequency(deviceDto.getFrequency());
         device.setCantoraName(deviceDto.getCantoraName());
         device.setCounterType(deviceDto.getCounterType());
-        deviceRepository.save(device);
+        return deviceRepository.save(device);
     }
 
-    public Device getDeviceByNumber(Long deviceNumber) {
-
-        return deviceRepository.findDeviceByNumberOfDevice(deviceNumber).orElse(null);
-
-    }
+//    public DeviceDto getDeviceDtoByNumber(Long deviceNumber) {
+//
+//        return deviceRepository.findDeviceDtoByNumberOfDevice(deviceNumber).orElse(null);
+//
+//    }
 
     public List<Device> getAllDevices() {
         return deviceRepository.findAll();
@@ -55,5 +55,9 @@ public class DeviceService {
         device.setCounterType(deviceDto.getCounterType());
         deviceRepository.save(device);
         return device;
+    }
+
+    public Device getDeviceByNumber(Long deviceNumber) {
+        return deviceRepository.findDeviceByNumberOfDevice(deviceNumber).orElseThrow();
     }
 }
