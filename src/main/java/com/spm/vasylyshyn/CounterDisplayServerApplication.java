@@ -18,7 +18,7 @@ public class CounterDisplayServerApplication {
 
 
     public static void main(String[] args) {
-        System.out.println("Hello 2");
+        System.out.println("Helo");
         SpringApplication.run(CounterDisplayServerApplication.class, args);
 
     }

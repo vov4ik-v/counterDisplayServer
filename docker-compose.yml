@@ -16,6 +16,8 @@ services:
     networks:
       custom_net:
         ipv4_address: 10.5.0.2
+#  liquibase:
+#    image: liquibase/liquibase
   mysqldb:
     image: mysql:8.0.33
     ports:
