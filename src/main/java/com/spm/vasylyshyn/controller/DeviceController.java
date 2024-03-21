@@ -30,12 +30,6 @@ public class DeviceController {
 
     }
 
-    @GetMapping("getAllDevices")
-    public ResponseEntity<List<Device>> getAllDevices(){
-        List<Device> devices = deviceService.getAllDevices();
-        return new ResponseEntity<>(devices,HttpStatus.OK);
-
-    }
 
     @PostMapping("updateDevice/{deviceId}")
     public ResponseEntity<Device> updateDevice(@PathVariable("deviceId") Long deviceId, @RequestBody DeviceDto deviceDto){
