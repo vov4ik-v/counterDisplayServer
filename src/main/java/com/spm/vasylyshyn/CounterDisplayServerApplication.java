@@ -1,24 +1,17 @@
 package com.spm.vasylyshyn;
 
 
+import com.spm.vasylyshyn.config.AppProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 
-// ПРАВКИ
-// get user
-// Отримувати  електронну погту, прізвище,нікнейм
-// Адреса
-//
-//
-//
-//
 @SpringBootApplication
 public class CounterDisplayServerApplication {
 
 
     public static void main(String[] args) {
-        System.out.println("Hello 2");
         SpringApplication.run(CounterDisplayServerApplication.class, args);
 
     }

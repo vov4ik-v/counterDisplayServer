@@ -11,7 +11,7 @@ WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 # Build the application using Maven
-RUN mvn clean package -DskipTests
+RUN mvn install -DskipTests
 # Use an official OpenJDK image as the base image
 FROM openjdk:17-alpine
 # Set the working directory in the container
