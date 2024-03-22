@@ -5,6 +5,7 @@ import com.spm.vasylyshyn.model.Device;
 import com.spm.vasylyshyn.model.DisplayCount;
 import com.spm.vasylyshyn.model.User;
 import com.spm.vasylyshyn.repository.DeviceRepository;
+import com.spm.vasylyshyn.request.UpdateDeviceRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -25,7 +26,7 @@ public class DeviceService {
         this.deviceRepository = deviceRepository;
     }
 
-    public Device registerDevice(DeviceDto deviceDto){
+    public Device registerDevice(DeviceDto deviceDto) {
         Device device = new Device();
         device.setNumberOfDevice(deviceDto.getNumberOfDevice());
         device.setPrice(deviceDto.getPrice());
@@ -37,7 +38,6 @@ public class DeviceService {
     }
 
 //    public DeviceDto getDeviceDtoByNumber(Long deviceNumber) {
-//
 //        return deviceRepository.findDeviceDtoByNumberOfDevice(deviceNumber).orElse(null);
 //
 //    }
@@ -46,13 +46,13 @@ public class DeviceService {
         return deviceRepository.findAll();
     }
 
-    public Device updateDevice(Long deviceId, DeviceDto deviceDto) {
+    public Device updateDevice(Long deviceId, UpdateDeviceRequest updateDeviceRequest) {
         Device device = deviceRepository.findDeviceByNumberOfDevice(deviceId).orElse(null);
-        device.setPrice(deviceDto.getPrice());
-        device.setAddress(deviceDto.getAddress());
-        device.setFrequency(deviceDto.getFrequency());
-        device.setCantoraName(deviceDto.getCantoraName());
-        device.setCounterType(deviceDto.getCounterType());
+        device.setPrice(updateDeviceRequest.getPrice());
+        device.setAddress(updateDeviceRequest.getAddress());
+        device.setFrequency(updateDeviceRequest.getFrequency());
+        device.setCantoraName(updateDeviceRequest.getCantoraName());
+        device.setCounterType(updateDeviceRequest.getCounterType());
         deviceRepository.save(device);
         return device;
     }

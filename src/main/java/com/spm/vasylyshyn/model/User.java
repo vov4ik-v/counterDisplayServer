@@ -1,6 +1,11 @@
 package com.spm.vasylyshyn.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.spm.vasylyshyn.enums.AuthProvider;
 import com.spm.vasylyshyn.enums.ERole;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -41,18 +47,28 @@ public class User implements UserDetails {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "owner")
     private List<Device> deviceList;
 
-    @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
-    @Column(updatable = false)
-    private LocalDateTime createdDate;
+    private String imageUrl;
+
 
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
 
+//    @NotNull
+//    @Enumerated(EnumType.STRING)
+//    private AuthProvider provider;
+//
+//    private String providerId;
+
+
+    @Column(updatable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDateTime createdDate;
 
     @PrePersist
     protected void onCreate(){
-       this.createdDate = LocalDateTime.now();
-
+        this.createdDate = LocalDateTime.now();
     }
 
     public User(Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {

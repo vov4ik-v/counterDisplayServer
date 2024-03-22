@@ -3,6 +3,7 @@ package com.spm.vasylyshyn.service;
 
 import com.spm.vasylyshyn.common.ApiResponse;
 import com.spm.vasylyshyn.dto.DeviceDto;
+import com.spm.vasylyshyn.enums.AuthProvider;
 import com.spm.vasylyshyn.enums.CType;
 import com.spm.vasylyshyn.exeptions.UserExistException;
 import com.spm.vasylyshyn.facade.DeviceFacade;
@@ -57,6 +58,7 @@ public class UserService {
         user.setFirstName(userIn.getFirstname());
         user.setLastName(userIn.getLastname());
         user.setAvatarId(1);
+//        user.setProvider(AuthProvider.local);
         user.setPassword(passwordEncoder.encode(userIn.getPassword()));
         user.getRoles().add(ERole.USER);
         try {
@@ -135,7 +137,7 @@ public class UserService {
 //                                       String password,
                                        Principal principal) {
         User user = getUserByPrincipal(principal);
-        Device device = deviceService.registerDevice(new DeviceDto(deviceNumber,"",null,address,0L,deviceType,0));
+        Device device = deviceService.registerDevice(new DeviceDto(deviceNumber,"",null,address,0L,deviceType,0,LocalDateTime.now()));
 //        if (device.getPassword().equals(password)){
             device.setAddress(address);
             device.setCounterType(deviceType);

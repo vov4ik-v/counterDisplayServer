@@ -4,6 +4,7 @@ import com.spm.vasylyshyn.common.ApiResponse;
 import com.spm.vasylyshyn.dto.DeviceDto;
 import com.spm.vasylyshyn.model.Device;
 import com.spm.vasylyshyn.model.DisplayCount;
+import com.spm.vasylyshyn.request.UpdateDeviceRequest;
 import com.spm.vasylyshyn.service.DeviceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,8 +39,8 @@ public class DeviceController {
     }
 
     @PostMapping("updateDevice/{deviceId}")
-    public ResponseEntity<Device> updateDevice(@PathVariable("deviceId") Long deviceId, @RequestBody DeviceDto deviceDto){
-        Device updatedDevice = deviceService.updateDevice(deviceId,deviceDto);
+    public ResponseEntity<Device> updateDevice(@PathVariable("deviceId") Long deviceId, @RequestBody UpdateDeviceRequest updateDeviceRequest){
+        Device updatedDevice = deviceService.updateDevice(deviceId,updateDeviceRequest);
         return new ResponseEntity<>(updatedDevice,HttpStatus.OK);
     }
 
