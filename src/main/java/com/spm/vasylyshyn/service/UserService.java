@@ -137,7 +137,7 @@ public class UserService {
 //                                       String password,
                                        Principal principal) {
         User user = getUserByPrincipal(principal);
-        Device device = deviceService.registerDevice(new DeviceDto(deviceNumber,"",null,address,0L,deviceType,0,LocalDateTime.now()));
+        Device device = deviceService.registerDevice(new DeviceDto(deviceNumber, "", null, address, 0L, deviceType, 0, LocalDateTime.now()));
 //        if (device.getPassword().equals(password)){
             device.setAddress(address);
             device.setCounterType(deviceType);

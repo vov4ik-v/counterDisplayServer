@@ -37,11 +37,6 @@ public class DeviceService {
         return deviceRepository.save(device);
     }
 
-//    public DeviceDto getDeviceDtoByNumber(Long deviceNumber) {
-//        return deviceRepository.findDeviceDtoByNumberOfDevice(deviceNumber).orElse(null);
-//
-//    }
-
     public List<Device> getAllDevices() {
         return deviceRepository.findAll();
     }
