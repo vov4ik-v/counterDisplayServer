@@ -26,6 +26,4 @@ public class DeviceDto {
     private CType counterType;
     private Integer price;
     private LocalDateTime createdDate;
-
-
 }
