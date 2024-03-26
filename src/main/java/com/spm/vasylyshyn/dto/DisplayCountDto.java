@@ -14,5 +14,4 @@ public class DisplayCountDto {
     private Long id;
     private Long displayCount;
     private LocalDateTime createdDate;
-
 }
