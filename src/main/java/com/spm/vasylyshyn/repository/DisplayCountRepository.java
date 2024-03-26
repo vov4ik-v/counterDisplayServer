@@ -22,6 +22,6 @@ public interface DisplayCountRepository extends JpaRepository<DisplayCount, Long
     List<DisplayCount> findDisplayCountsByDeviceAndCreatedDateGreaterThanEqualAndCreatedDateLessThanEqual(Device device, LocalDateTime startRange, LocalDateTime endRange);
 
 
-    @Query("select new com.spm.vasylyshyn.dto.DisplayCountDto(d.id,d.displayCount,d.createdDate) from DisplayCount as d where d.device = :device")
+    @Query("select new com.spm.vasylyshyn.dto.DisplayCountDto(d.id,d.displayCount, d.createdDate) from DisplayCount as d where d.device = :device")
     Optional<List<DisplayCountDto>> findDisplayCountsDtoByDevice(@Param("device") Device device);
 }
