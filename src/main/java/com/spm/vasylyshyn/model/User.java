@@ -49,7 +49,6 @@ public class User implements UserDetails {
 
     private String imageUrl;
 
-
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
 
