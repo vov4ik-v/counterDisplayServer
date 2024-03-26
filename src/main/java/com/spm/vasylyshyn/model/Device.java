@@ -1,7 +1,6 @@
 package com.spm.vasylyshyn.model;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spm.vasylyshyn.enums.CType;
 import lombok.*;
@@ -44,22 +43,12 @@ public class Device {
     private List<DisplayCount> displayCounts = new ArrayList<>();
 
     @Column(updatable = false)
-    private String createdDate;
+
+    private LocalDateTime createdDate;
 
     @PrePersist
-        protected void onCreate(){
-       createdDate =  ZonedDateTime
-                .now(
-                        ZoneId.of( "Europe/Bucharest" )
-                )
-                .format(
-                        DateTimeFormatter
-                                .ofLocalizedDateTime( FormatStyle.SHORT )
-                                .withLocale(
-                                        new Locale( "ro" , "RO" )   // Romanian in Romania.
-                                )
-                );
-
+    protected void onCreate(){
+        this.createdDate = LocalDateTime.now();
     }
 
 

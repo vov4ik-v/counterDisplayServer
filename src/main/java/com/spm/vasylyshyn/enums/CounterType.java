@@ -1,5 +1,5 @@
 package com.spm.vasylyshyn.enums;
 
-public enum CType {
+public enum CounterType {
     GAS,WATER,LIGHT
 }

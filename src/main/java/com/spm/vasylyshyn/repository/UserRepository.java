@@ -19,14 +19,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findUserByUsername(String username);
     Optional<User> findUserByEmail(String email);
 
-    @Query("select new com.spm.vasylyshyn.dto.UserDto(u.id,u.username,u.firstName, u.lastName,u.phoneNumber,u.email,u.address) from User as u")
+    @Query("select new com.spm.vasylyshyn.dto.UserDto(u.id, u.username, u.firstName, u.lastName, u.phoneNumber, u.email, u.address, u.createdDate) from User as u")
     Optional<UserDto> findDtoUserById(Long id);
 
-    @Query("select new com.spm.vasylyshyn.dto.UserDto(u.id,u.username,u.firstName, u.lastName,u.phoneNumber,u.email,u.address) from User as u where u.username = :username")
+    @Query("select new com.spm.vasylyshyn.dto.UserDto(u.id, u.username, u.firstName, u.lastName, u.phoneNumber, u.email, u.address, u.createdDate) from User as u where u.username = :username")
     Optional<UserDto> findUserDtoByUsername(@Param("username") String username);
 
 
-    @Query("select new com.spm.vasylyshyn.dto.UserDto(u.id,u.username,u.firstName, u.lastName,u.phoneNumber,u.email,u.address) from User as u")
+    @Query("select new com.spm.vasylyshyn.dto.UserDto(u.id, u.username, u.firstName, u.lastName, u.phoneNumber, u.email, u.address, u.createdDate) from User as u")
     Optional<List<UserDto>> findAllUsersDto();
     List<User> findAllByOrderByCreatedDateDesc();
     Optional<User> findUserById(Long id);

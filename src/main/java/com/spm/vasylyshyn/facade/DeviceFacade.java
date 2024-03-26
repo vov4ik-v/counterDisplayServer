@@ -18,6 +18,7 @@ public class DeviceFacade {
         deviceDto.setDisplayCounts(device.getDisplayCounts());
         deviceDto.setFrequency(device.getFrequency());
         deviceDto.setCounterType(device.getCounterType());
+        deviceDto.setCreatedDate(device.getCreatedDate());
         deviceDto.setCantoraName(device.getCantoraName());
 
 
