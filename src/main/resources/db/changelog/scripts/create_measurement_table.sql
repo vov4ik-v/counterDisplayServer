@@ -1,4 +1,4 @@
-CREATE TABLE IF not exists display_count(
+CREATE TABLE IF not exists measurement(
     id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     created_date VARCHAR(255) default null,
     display_count BIGINT default null,

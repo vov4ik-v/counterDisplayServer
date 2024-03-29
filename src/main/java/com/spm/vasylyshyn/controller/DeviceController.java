@@ -1,17 +1,13 @@
 package com.spm.vasylyshyn.controller;
 
-import com.spm.vasylyshyn.common.ApiResponse;
+import com.spm.vasylyshyn.response.ApiResponse;
 import com.spm.vasylyshyn.dto.DeviceDto;
 import com.spm.vasylyshyn.model.Device;
-import com.spm.vasylyshyn.model.DisplayCount;
 import com.spm.vasylyshyn.request.UpdateDeviceRequest;
 import com.spm.vasylyshyn.service.DeviceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
-import java.util.List;
 
 @RestController
 @CrossOrigin

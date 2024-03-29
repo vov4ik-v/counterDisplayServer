@@ -2,10 +2,9 @@ package com.spm.vasylyshyn.controller;
 
 
 
-import com.spm.vasylyshyn.common.ApiResponse;
+import com.spm.vasylyshyn.response.ApiResponse;
 import com.spm.vasylyshyn.dto.DeviceDto;
-import com.spm.vasylyshyn.enums.CType;
-import com.spm.vasylyshyn.model.Device;
+import com.spm.vasylyshyn.enums.CounterType;
 import com.spm.vasylyshyn.request.RegisterDeviceRequest;
 import com.spm.vasylyshyn.validations.ResponseErrorValidation;
 import com.spm.vasylyshyn.dto.UserDto;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/user")
