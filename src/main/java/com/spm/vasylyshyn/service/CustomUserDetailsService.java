@@ -2,6 +2,7 @@ package com.spm.vasylyshyn.service;
 
 
 
+import com.spm.vasylyshyn.exeptions.ResourceNotFoundException;
 import com.spm.vasylyshyn.repository.UserRepository;
 import com.spm.vasylyshyn.model.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -32,7 +33,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     public User loadUserById(Long id){
-        return userRepository.findUserById(id).orElse(null);
+        return userRepository.findUserById(id).orElseThrow(
+                () -> new ResourceNotFoundException("User", "id", id)
+        );
 
 
 

@@ -1,4 +1,4 @@
-package com.spm.vasylyshyn.common;
+package com.spm.vasylyshyn.response;
 
 import java.time.LocalDateTime;
 

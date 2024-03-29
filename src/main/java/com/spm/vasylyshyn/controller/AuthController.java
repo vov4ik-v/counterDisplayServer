@@ -5,8 +5,8 @@ import com.spm.vasylyshyn.request.LoginRequest;
 import com.spm.vasylyshyn.request.SignupRequest;
 import com.spm.vasylyshyn.validations.ResponseErrorValidation;
 import com.spm.vasylyshyn.model.User;
-import com.spm.vasylyshyn.payload.JWTTokenSuccessResponse;
-import com.spm.vasylyshyn.payload.MessageResponse;
+import com.spm.vasylyshyn.response.JWTTokenSuccessResponse;
+import com.spm.vasylyshyn.response.MessageResponse;
 
 import com.spm.vasylyshyn.security.JWTTokenProvider;
 import com.spm.vasylyshyn.security.SecurityConstants;
@@ -58,7 +58,7 @@ public class AuthController {
         ResponseEntity<Object> errors = responseErrorValidation.mapValidationService(bindingResult);
         if (!ObjectUtils.isEmpty(errors)) return errors;
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                loginRequest.getUsername()
+                loginRequest.getEmail()
                , loginRequest.getPassword()
 
         ));

@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 
 @SpringBootApplication
+@EnableConfigurationProperties(AppProperties.class)
 public class CounterDisplayServerApplication {
 
 

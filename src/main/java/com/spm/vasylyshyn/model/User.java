@@ -52,11 +52,11 @@ public class User implements UserDetails {
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
 
-//    @NotNull
-//    @Enumerated(EnumType.STRING)
-//    private AuthProvider provider;
-//
-//    private String providerId;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private AuthProvider provider;
+
+    private String providerId;
 
 
     @Column(updatable = false)
@@ -77,12 +77,6 @@ public class User implements UserDetails {
         this.password = password;
         this.authorities = authorities;
     }
-//    public void addUserToFriends(User friend){
-//        friends.add(friend);
-//    }
-//    public void removeUserFromFriends(User friend){
-//        friends.remove(friend);
-//    }
 
     //Security
     @Override

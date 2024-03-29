@@ -1,4 +1,4 @@
-insert into display_count(created_date, display_count, device_id)
+insert into measurement(created_date, display_count, device_id)
 VALUES
     (CURRENT_TIMESTAMP,'123456',1),
     (CURRENT_TIMESTAMP,'123578',1),

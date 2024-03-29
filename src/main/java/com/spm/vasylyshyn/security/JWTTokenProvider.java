@@ -1,7 +1,6 @@
 package com.spm.vasylyshyn.security;
 
 
-
 import com.spm.vasylyshyn.model.User;
 import com.spm.vasylyshyn.repository.UserRepository;
 import io.jsonwebtoken.*;
@@ -17,48 +16,50 @@ import java.util.Map;
 
 @Component
 public class JWTTokenProvider {
-    public static final Logger LOG = LoggerFactory.getLogger(JWTTokenProvider.class);
+    public static final Logger logger = LoggerFactory.getLogger(JWTTokenProvider.class);
     private final UserRepository userRepository;
 
     public JWTTokenProvider(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public String generateToken(Authentication authentication){
-        User user = (User) authentication.getPrincipal();
+    public String generateToken(Authentication authentication) {
+        User userPrincipal = (User) authentication.getPrincipal();
         Date now = new Date(System.currentTimeMillis());
 //        Date expiryDate = new Date(now.getTime()+ SecurityConstants.EXPIRATION_TIME);
-        String userId = Long.toString(user.getId());
+        String userId = Long.toString(userPrincipal.getId());
 
         Map<String, Object> claimsMap = new HashMap<>();
         claimsMap.put("id", userId);
-        claimsMap.put("username", user.getEmail());
+        claimsMap.put("username", userPrincipal.getEmail());
         claimsMap.put("authories", authentication.getAuthorities());
         return Jwts.builder().setSubject(userId).setClaims(claimsMap).setIssuedAt(now)
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET).compact();
     }
 
-    public boolean validateToken (String token){
+    public boolean validateToken(String token) {
         try {
             Jwts.parser().setSigningKey(SecurityConstants.SECRET).parseClaimsJws(token);
             return true;
+        } catch (SignatureException ex) {
+            logger.error("Invalid JWT signature");
+        } catch (MalformedJwtException ex) {
+            logger.error("Invalid JWT token");
+        } catch (ExpiredJwtException ex) {
+            logger.error("Expired JWT token");
+        } catch (UnsupportedJwtException ex) {
+            logger.error("Unsupported JWT token");
+        } catch (IllegalArgumentException ex) {
+            logger.error("JWT claims string is empty.");
         }
-        catch (SignatureException |
-                MalformedJwtException |
-                ExpiredJwtException |
-                UnsupportedJwtException|
-                IllegalArgumentException ex) {
-
-            LOG.error(ex.getMessage());
-            return false;
-        }
+        return false;
     }
 
-    public Long getUserIdFromToken(String token){
+    public Long getUserIdFromToken(String token) {
         Claims claims = Jwts.parser().setSigningKey(SecurityConstants.SECRET)
                 .parseClaimsJws(token).getBody();
 
-      String id = (String) claims.get("id");
-      return  Long.parseLong(id);
+        String id = (String) claims.get("id");
+        return Long.parseLong(id);
     }
 }

@@ -1,4 +1,4 @@
-package com.spm.vasylyshyn.payload;
+package com.spm.vasylyshyn.response;
 
 
 import lombok.AllArgsConstructor;
