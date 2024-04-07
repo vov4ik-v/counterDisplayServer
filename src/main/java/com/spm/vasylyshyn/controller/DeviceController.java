@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/device/")
+// TODO: Update all response from Device to DeviceDTO
 public class DeviceController {
 
     private final DeviceService deviceService;
@@ -35,9 +36,9 @@ public class DeviceController {
     }
 
     @PostMapping("register")
-    public ResponseEntity<ApiResponse> registerDevice(@RequestBody DeviceDto deviceDto){
-        deviceService.registerDevice(deviceDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<Device> registerDevice(@RequestBody DeviceDto deviceDto){
+        Device createdDevice = deviceService.registerDevice(deviceDto);
+        return new ResponseEntity<>(createdDevice,HttpStatus.CREATED);
     }
 
 }
