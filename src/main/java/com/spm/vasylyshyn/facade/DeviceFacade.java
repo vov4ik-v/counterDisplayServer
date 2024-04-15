@@ -2,9 +2,7 @@ package com.spm.vasylyshyn.facade;
 
 
 import com.spm.vasylyshyn.dto.DeviceDto;
-import com.spm.vasylyshyn.dto.UserDto;
 import com.spm.vasylyshyn.model.Device;
-import com.spm.vasylyshyn.model.User;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,7 +13,7 @@ public class DeviceFacade {
         deviceDto.setNumberOfDevice(device.getNumberOfDevice());
         deviceDto.setPrice(device.getPrice());
         deviceDto.setAddress(device.getAddress());
-        deviceDto.setDisplayCounts(device.getDisplayCounts());
+        deviceDto.setMeasurements(device.getMeasurements());
         deviceDto.setFrequency(device.getFrequency());
         deviceDto.setCounterType(device.getCounterType());
         deviceDto.setCreatedDate(device.getCreatedDate());

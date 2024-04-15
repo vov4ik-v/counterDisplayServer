@@ -1,8 +1,9 @@
 package com.spm.vasylyshyn.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.spm.vasylyshyn.enums.CType;
-import com.spm.vasylyshyn.model.DisplayCount;
+
+import com.spm.vasylyshyn.enums.CounterType;
+import com.spm.vasylyshyn.model.Measurement;
 import com.spm.vasylyshyn.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,10 +21,10 @@ import java.util.List;
 public class DeviceDto {
     private Long numberOfDevice;
     private String cantoraName;
-    private List<DisplayCount> displayCounts;
+    private List<Measurement> measurements;
     private String address;
     private Long frequency;
-    private CType counterType;
+    private CounterType counterType;
     private Integer price;
     private LocalDateTime createdDate;
 }

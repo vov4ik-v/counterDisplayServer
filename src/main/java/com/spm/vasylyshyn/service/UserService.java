@@ -1,18 +1,17 @@
 package com.spm.vasylyshyn.service;
 
 
-import com.spm.vasylyshyn.common.ApiResponse;
+import com.spm.vasylyshyn.response.ApiResponse;
 import com.spm.vasylyshyn.dto.DeviceDto;
-import com.spm.vasylyshyn.enums.AuthProvider;
-import com.spm.vasylyshyn.enums.CType;
+import com.spm.vasylyshyn.dto.UserDto;
+import com.spm.vasylyshyn.enums.CounterType;
+import com.spm.vasylyshyn.enums.ERole;
 import com.spm.vasylyshyn.exeptions.UserExistException;
 import com.spm.vasylyshyn.facade.DeviceFacade;
 import com.spm.vasylyshyn.model.Device;
+import com.spm.vasylyshyn.model.User;
 import com.spm.vasylyshyn.repository.DeviceRepository;
 import com.spm.vasylyshyn.repository.UserRepository;
-import com.spm.vasylyshyn.dto.UserDto;
-import com.spm.vasylyshyn.enums.ERole;
-import com.spm.vasylyshyn.model.User;
 import com.spm.vasylyshyn.request.SignupRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -133,7 +132,7 @@ public class UserService {
     }
 
 // Затичка, після міграції переробити
-    public ApiResponse addDeviceToUser(Long deviceNumber, CType deviceType, String address,
+    public ApiResponse addDeviceToUser(Long deviceNumber, CounterType deviceType, String address,
 //                                       String password,
                                        Principal principal) {
         User user = getUserByPrincipal(principal);

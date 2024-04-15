@@ -2,7 +2,7 @@ package com.spm.vasylyshyn.service;
 
 import com.spm.vasylyshyn.dto.DeviceDto;
 import com.spm.vasylyshyn.model.Device;
-import com.spm.vasylyshyn.model.DisplayCount;
+import com.spm.vasylyshyn.model.Measurement;
 import com.spm.vasylyshyn.model.User;
 import com.spm.vasylyshyn.repository.DeviceRepository;
 import com.spm.vasylyshyn.request.UpdateDeviceRequest;

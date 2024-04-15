@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @Builder
-public class DisplayCountDto {
+public class MeasurementDto {
     private Long id;
-    private Long displayCount;
+    private Long measurement;
     private LocalDateTime createdDate;
 }

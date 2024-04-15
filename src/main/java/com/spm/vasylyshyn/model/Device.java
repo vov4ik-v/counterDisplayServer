@@ -2,7 +2,7 @@ package com.spm.vasylyshyn.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spm.vasylyshyn.enums.CType;
+import com.spm.vasylyshyn.enums.CounterType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,7 +30,7 @@ public class Device {
 
     private String cantoraName;
 
-    private CType counterType;
+    private CounterType counterType;
     private String address;
     private Long frequency;
     private String password;
@@ -40,7 +40,7 @@ public class Device {
     @JsonIgnore
     private User owner;
     @OneToMany(mappedBy="device")
-    private List<DisplayCount> displayCounts = new ArrayList<>();
+    private List<Measurement> measurements = new ArrayList<>();
 
     @Column(updatable = false)
 
