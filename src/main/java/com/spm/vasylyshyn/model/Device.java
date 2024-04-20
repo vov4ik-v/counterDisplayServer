@@ -3,6 +3,7 @@ package com.spm.vasylyshyn.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spm.vasylyshyn.enums.CounterType;
+import com.spm.vasylyshyn.enums.Regularity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,30 +27,35 @@ public class Device {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long numberOfDevice;
+    private Long id;
+
+    @Column(updatable = false,nullable = false,unique = true)
+    private Long serialNumber;
+
+    private String name;
 
     private String cantoraName;
 
-    private CounterType counterType;
-    private String address;
-    private Long frequency;
-    private String password;
-    private Integer price;
+    @Column(nullable = false)
+    private Boolean isCalibrated;
+
+    @OneToMany(mappedBy="device")
+    private List<Measurement> measurements = new ArrayList<>();
+
+//    private StatisticSettings statisticSettings;
+
+    // TODO: Rename this field
+//    private NeededDataForSendMeasurement neededDataForSendMeasurement;
+
+//    private Regularity regularity;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User owner;
-    @OneToMany(mappedBy="device")
-    private List<Measurement> measurements = new ArrayList<>();
 
-    @Column(updatable = false)
-
-    private LocalDateTime createdDate;
-
-    @PrePersist
-    protected void onCreate(){
-        this.createdDate = LocalDateTime.now();
-    }
+    private CounterType counterType;
+    private Address address;
 
 
 

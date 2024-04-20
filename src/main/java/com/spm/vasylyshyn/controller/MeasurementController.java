@@ -21,18 +21,18 @@ public class MeasurementController {
         this.measurementService = measurementService;
     }
 
-    @GetMapping("getMeasurementsByDeviceNumber/{deviceNumber}")
-    public ResponseEntity<List<MeasurementDto>> getMeasurementsByDeviceNumber(@PathVariable("deviceNumber") Long deviceNumber){
-        List<MeasurementDto> measurementsDto = measurementService.getMeasurementsDtoByDeviceNumber(deviceNumber);
+    @GetMapping("getMeasurementsByDeviceNumber/{serialNumber}")
+    public ResponseEntity<List<MeasurementDto>> getMeasurementsByDeviceNumber(@PathVariable("serialNumber") Long serialNumber){
+        List<MeasurementDto> measurementsDto = measurementService.getMeasurementsDtoByDeviceNumber(serialNumber);
         return new ResponseEntity<>(measurementsDto,HttpStatus.OK);
     }
 
 
-    @GetMapping("getLastCollectedMeasurement/{deviceNumber}")
-    public ResponseEntity<MeasurementDto> getLastCollectedMeasurement(@PathVariable("deviceNumber") Long deviceNumber){
+    @GetMapping("getLastCollectedMeasurement/{serialNumber}")
+    public ResponseEntity<MeasurementDto> getLastCollectedMeasurement(@PathVariable("serialNumber") Long serialNumber){
 //        Measurement measurement = measurementService.getLastCollectedMeasurement(deviceNumber);
 //        MeasurementDto measurementDto = MeasurementDto.builder().id(measurement.getId()).measurement(measurement.getmeasurement()).build();
-        return new ResponseEntity<>(measurementService.getLastCollectedMeasurement(deviceNumber),HttpStatus.OK);
+        return new ResponseEntity<>(measurementService.getLastCollectedMeasurement(serialNumber),HttpStatus.OK);
     }
 
     @GetMapping("getAllMeasurements")
@@ -50,12 +50,12 @@ public class MeasurementController {
 
 
 
-    @GetMapping("getInRange/{deviceNumber}")
-    public ResponseEntity<List<Measurement>> getMeasurementInDateRange(@PathVariable("deviceNumber") Long deviceNumber,
+    @GetMapping("getInRange/{serialNumber}")
+    public ResponseEntity<List<Measurement>> getMeasurementInDateRange(@PathVariable("serialNumber") Long serialNumber,
                                                                           @RequestParam("startRange") LocalDateTime startRange,
                                                                           @RequestParam("endRange")LocalDateTime endRange
     ){
-        List<Measurement> allMeasurementsInRange = measurementService.findAllmeasurementsInRange(deviceNumber,startRange,endRange);
+        List<Measurement> allMeasurementsInRange = measurementService.findAllmeasurementsInRange(serialNumber,startRange,endRange);
         return new ResponseEntity<>(allMeasurementsInRange,HttpStatus.OK);
     }
 }

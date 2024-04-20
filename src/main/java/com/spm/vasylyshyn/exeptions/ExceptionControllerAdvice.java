@@ -16,4 +16,17 @@ public class ExceptionControllerAdvice {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(value = EmailAlreadyExistException.class)
+    public final ResponseEntity<String> handlerCustomException(EmailAlreadyExistException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(value = UsernameAlreadyExistException.class)
+    public final ResponseEntity<String> handlerCustomException(UsernameAlreadyExistException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(value = DeviceHasNotYetBeenCreatedException.class)
+    public final ResponseEntity<String> handlerCustomException(DeviceHasNotYetBeenCreatedException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
 }

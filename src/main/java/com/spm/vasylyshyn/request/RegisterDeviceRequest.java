@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterDeviceRequest {
-    private Long deviceNumber;
-    private CounterType deviceType;
-    private String address;
-    private String password;
+    private Long serialNumber;
+    private String name;
 }

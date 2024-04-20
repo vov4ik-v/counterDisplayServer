@@ -21,17 +21,17 @@ public class DeviceController {
         this.deviceService = deviceService;
     }
 
-    @GetMapping("getDeviceByNumber/{deviceNumber}")
-    public ResponseEntity<Device> getDeviceByNumber(@PathVariable("deviceNumber") Long deviceNumber){
-        Device device = deviceService.getDeviceByNumber(deviceNumber);
+    @GetMapping("getDeviceByserialNumber/{serialNumber}")
+    public ResponseEntity<Device> getDeviceByNumber(@PathVariable("serialNumber") Long serialNumber){
+        Device device = deviceService.getDeviceBySerialNumber(serialNumber);
         return new ResponseEntity<>(device,HttpStatus.OK);
 
     }
 
 
-    @PostMapping("updateDevice/{deviceId}")
-    public ResponseEntity<Device> updateDevice(@PathVariable("deviceId") Long deviceId, @RequestBody UpdateDeviceRequest updateDeviceRequest){
-        Device updatedDevice = deviceService.updateDevice(deviceId,updateDeviceRequest);
+    @PostMapping("updateDevice/{serialNumber}")
+    public ResponseEntity<Device> updateDevice(@PathVariable("serialNumber") Long serialNumber, @RequestBody UpdateDeviceRequest updateDeviceRequest){
+        Device updatedDevice = deviceService.updateDevice(serialNumber,updateDeviceRequest);
         return new ResponseEntity<>(updatedDevice,HttpStatus.OK);
     }
 

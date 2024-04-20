@@ -12,13 +12,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.*;
 
+
+
+
+
 @Entity
 @Data
-
 @NoArgsConstructor
 public class User implements UserDetails {
     @Id
@@ -28,25 +30,21 @@ public class User implements UserDetails {
     private String username;
     @Column(nullable = false)
     private String email;
-    private String firstName;
-    private String lastName;
-    private String phoneNumber;
-    private Integer avatarId;
-    @Column(length = 3000)
+    @Column(length = 3000,nullable = false)
     private String password;
-
-
+    private String phoneNumber;
+    private String imageUrl; // TODO: Need to set  default url
     @Embedded
     private Address address;
-
-    @ElementCollection(targetClass = ERole.class,fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-    private Set<ERole> roles = new HashSet<>();
+    private String firstName;
+    private String lastName;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "owner")
     private List<Device> deviceList;
 
-    private String imageUrl;
+    @ElementCollection(targetClass = ERole.class,fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    private Set<ERole> roles = new HashSet<>();
 
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
@@ -76,13 +74,6 @@ public class User implements UserDetails {
         this.password = password;
         this.authorities = authorities;
     }
-//    public void addUserToFriends(User friend){
-//        friends.add(friend);
-//    }
-//    public void removeUserFromFriends(User friend){
-//        friends.remove(friend);
-//    }
-
     //Security
     @Override
     public String getPassword(){

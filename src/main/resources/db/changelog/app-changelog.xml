@@ -12,6 +12,6 @@ http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/
 <include file="db/changelog/scripts/create_user_role_table.sql"/>
 <include file="db/changelog/scripts/insert_into_user.sql"/>
 <include file="db/changelog/scripts/insert_into_user_role.sql"/>
-<include file="db/changelog/scripts/insert_into_device.sql"/>
-<include file="db/changelog/scripts/insert_into_measurement.sql"/>
+<!--<include file="db/changelog/scripts/insert_into_device.sql"/>-->
+<!--<include file="db/changelog/scripts/insert_into_measurement.sql"/>-->
 </databaseChangeLog>

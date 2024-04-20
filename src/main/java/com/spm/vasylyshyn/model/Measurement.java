@@ -20,6 +20,7 @@ public class Measurement {
 
     private Long measurement;
 
+    private Boolean isSubmitted;
 
     @ManyToOne
     @JoinColumn(name="device_id", nullable=false)

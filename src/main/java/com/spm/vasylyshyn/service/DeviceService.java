@@ -28,10 +28,6 @@ public class DeviceService {
 
     public Device registerDevice(DeviceDto deviceDto) {
         Device device = new Device();
-        device.setNumberOfDevice(deviceDto.getNumberOfDevice());
-        device.setPrice(deviceDto.getPrice());
-        device.setAddress(deviceDto.getAddress());
-        device.setFrequency(deviceDto.getFrequency());
         device.setCantoraName(deviceDto.getCantoraName());
         device.setCounterType(deviceDto.getCounterType());
         return deviceRepository.save(device);
@@ -41,18 +37,15 @@ public class DeviceService {
         return deviceRepository.findAll();
     }
 
-    public Device updateDevice(Long deviceId, UpdateDeviceRequest updateDeviceRequest) {
-        Device device = deviceRepository.findDeviceByNumberOfDevice(deviceId).orElse(null);
-        device.setPrice(updateDeviceRequest.getPrice());
-        device.setAddress(updateDeviceRequest.getAddress());
-        device.setFrequency(updateDeviceRequest.getFrequency());
+    public Device updateDevice(Long serialNumber, UpdateDeviceRequest updateDeviceRequest) {
+        Device device = deviceRepository.findDeviceBySerialNumber(serialNumber).orElse(null);
         device.setCantoraName(updateDeviceRequest.getCantoraName());
         device.setCounterType(updateDeviceRequest.getCounterType());
         deviceRepository.save(device);
         return device;
     }
 
-    public Device getDeviceByNumber(Long deviceNumber) {
-        return deviceRepository.findDeviceByNumberOfDevice(deviceNumber).orElseThrow();
+    public Device getDeviceBySerialNumber(Long serialNumber) {
+        return deviceRepository.findDeviceBySerialNumber(serialNumber).orElseThrow();
     }
 }

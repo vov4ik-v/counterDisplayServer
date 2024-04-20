@@ -1,4 +1,4 @@
-INSERT INTO user(city, number, region, street, avatar_id, created_date, email, first_name, last_name, password, phone_number, username)
+INSERT INTO user(city, number, region, street, image_url, created_date, email, first_name, last_name, password, phone_number, username)
 VALUES
     ('Lviv','40','Lviv','Lazarenka',null,CURRENT_TIMESTAMP,'test1@gmail.com','test1','test1','$2a$10$T0c4TD48tG3orD//mqiN4uDkNp8d5gLyMR33pCxLVKIgpNyupOV4K','+380991262441','test1'),
     ('Lviv','28','Lviv','Green',null,CURRENT_TIMESTAMP,'test2@gmail.com','test2','test2','$2a$10$yppTWyl.p7zY3W3rf0c5YuzO2j4BwvLYNGm8J7GUHn2RaZcabsDXG','+380991262441','test2'),

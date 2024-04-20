@@ -1,8 +1,7 @@
-INSERT INTO device(cantora_name, address, frequency, password, price, user_id, created_date, counter_type)
+INSERT INTO device (serial_number, cantora_name, is_calibrated, counter_type, city, number, region, street, user_id)
 VALUES
-    ('LvivOblGas','Lazarenka,40',30,'123',8,1,CURRENT_TIMESTAMP,0),
-    ('LvivOblWater','Ivanenka,18',30,'123',8,1,CURRENT_TIMESTAMP,1),
-    ('LvivOblLight','Vaselenka,24',30,'123',8,1,CURRENT_TIMESTAMP,2),
-    ('LvivOblGas','Bandera,76',30,'123',8,2,CURRENT_TIMESTAMP,1),
-    ('LvivOblWater','Bandera,54',30,'123',8,2,CURRENT_TIMESTAMP,2),
-    ('LvivOblLight','Bandera,31',30,'123',8,3,CURRENT_TIMESTAMP,0)
+ (123456789, 'SomeCantora', true, 1, 'CityA', '123', 'RegionA', 'StreetA', 1),
+ (456789123, 'CantoraX', true, 3, 'CityC', '789', 'RegionC', 'StreetC', 1),
+ (789123456, 'CantoraY', false, 1, 'CityD', '012', 'RegionD', 'StreetD', 2);
+ (654321987, 'CantoraZ', true, 2, 'CityE', '345', 'RegionE', 'StreetE', 3);
+ (321987654, 'CantoraW', false, 3, 'CityF', '678', 'RegionF', 'StreetF', 4);

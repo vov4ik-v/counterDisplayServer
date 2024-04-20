@@ -28,8 +28,8 @@ public class MeasurementService {
         measurementRepository.save(measurement);
     }
 
-    public List<MeasurementDto> getMeasurementsDtoByDeviceNumber(Long deviceNumber) {
-        Device device = deviceRepository.findDeviceByNumberOfDevice(deviceNumber).orElse(null);
+    public List<MeasurementDto> getMeasurementsDtoByDeviceNumber(Long serialNumber) {
+        Device device = deviceRepository.findDeviceBySerialNumber(serialNumber).orElse(null);
         return measurementRepository.findMeasurementsDtoByDevice(device).orElse(null);
     }
 
@@ -37,13 +37,13 @@ public class MeasurementService {
         return measurementRepository.findAll();
     }
 
-    public MeasurementDto getLastCollectedMeasurement(Long deviceNumber) {
-        Device device = deviceRepository.findDeviceByNumberOfDevice(deviceNumber).orElseThrow();
+    public MeasurementDto getLastCollectedMeasurement(Long serialNumber) {
+        Device device = deviceRepository.findDeviceBySerialNumber(serialNumber).orElseThrow();
         return measurementRepository.findDto(device).orElseThrow(()-> new RuntimeException(""));
     }
 
-    public List<Measurement> findAllmeasurementsInRange(Long deviceNumber,LocalDateTime startRange,LocalDateTime endRange) {
-        Device device = deviceRepository.findDeviceByNumberOfDevice(deviceNumber).orElseThrow();
+    public List<Measurement> findAllmeasurementsInRange(Long serialNumber,LocalDateTime startRange,LocalDateTime endRange) {
+        Device device = deviceRepository.findDeviceBySerialNumber(serialNumber).orElseThrow();
         return measurementRepository.findMeasurementsByDeviceAndCreatedDateGreaterThanEqualAndCreatedDateLessThanEqual(device,startRange,endRange);
     }
 }

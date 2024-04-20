@@ -53,6 +53,8 @@ public class AuthController {
     }
 
 
+
+    // TODO: Watch how to work handle error and in case change TokenSuccessResponse to JWTTokenResponse
     @PostMapping("/signin")
     public ResponseEntity<Object> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult bindingResult){
         ResponseEntity<Object> errors = responseErrorValidation.mapValidationService(bindingResult);
@@ -71,16 +73,7 @@ public class AuthController {
     public ResponseEntity<Object> registerUser(@Valid @RequestBody SignupRequest signupRequest, BindingResult bindingResult) throws IOException {
         ResponseEntity<Object> errors = responseErrorValidation.mapValidationService(bindingResult);
         if (!ObjectUtils.isEmpty(errors)) return errors;
-        User newUser = userService.createUser(signupRequest);
-        Path path = Paths.get("./src/main/resources/img/avatar.jpg");
-        String name = "avatar.jpg";
-        String originalFileName = "avatar.jpg";
-        String contentType = "text/plain";
-        byte[] content = null;
-        try {
-            content = Files.readAllBytes(path);
-        } catch (final IOException e) {
-        }
+        userService.createUser(signupRequest);
         return ResponseEntity.ok(new MessageResponse("User registreted successfully"));
 
     }

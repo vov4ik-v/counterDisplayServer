@@ -4,7 +4,7 @@ CREATE TABLE IF not exists user(
     number VARCHAR(255) default null,
     region VARCHAR(255) default null,
     street VARCHAR(255) default null,
-    avatar_id INT default null,
+    image_url VARCHAR(255) default null,
     created_date DATETIME(6) default null,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(3000) default null,

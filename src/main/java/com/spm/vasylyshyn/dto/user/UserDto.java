@@ -1,4 +1,4 @@
-package com.spm.vasylyshyn.dto;
+package com.spm.vasylyshyn.dto.user;
 
 
 import com.spm.vasylyshyn.annotations.ValidPhoneNumber;
@@ -17,12 +17,13 @@ public class UserDto {
 
     private Long id;
     private String username;
-    private String firstName;
-    private String lastName;
+    private String email;
     @ValidPhoneNumber
     private String phoneNumber;
-    private String email;
-    private Address address;
-    private LocalDateTime createdDate;
+    private String imageUrl;
+    private String firstName;
+    private String lastName;
+    private Address defaultAddressForNewDevices;
+
 }
 
