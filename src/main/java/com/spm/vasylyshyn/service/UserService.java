@@ -53,7 +53,6 @@ public class UserService {
         user.setEmail(userIn.getEmail());
         user.setImageUrl("https://w7.pngwing.com/pngs/612/280/png-transparent-customer-user-userphoto-account-person-glyphs-icon.png");
         user.setUsername(userIn.getUsername());
-//        user.setProvider(AuthProvider.local);
         user.setPassword(passwordEncoder.encode(userIn.getPassword()));
         user.getRoles().add(ERole.USER);
         try {
