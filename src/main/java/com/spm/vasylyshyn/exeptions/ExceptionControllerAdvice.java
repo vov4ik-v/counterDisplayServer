@@ -25,7 +25,8 @@ public class ExceptionControllerAdvice {
     public final ResponseEntity<String> handlerCustomException(UsernameAlreadyExistException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
-    @ExceptionHandler(value = DeviceHasNotYetBeenCreatedException.class)
+
+        @ExceptionHandler(value = DeviceHasNotYetBeenCreatedException.class)
     public final ResponseEntity<String> handlerCustomException(DeviceHasNotYetBeenCreatedException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
