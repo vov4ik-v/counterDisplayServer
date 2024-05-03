@@ -88,7 +88,7 @@ public class UserController {
 
     @PostMapping("/addDeviceToUser")
         public ResponseEntity<ApiResponse> addDeviceToUser(@RequestBody RegisterDeviceRequest registerDeviceRequest, Principal principal){
-           ApiResponse response =  userService.registerDevice(registerDeviceRequest,principal);
+           ApiResponse response = userService.registerDevice(registerDeviceRequest, principal);
            return new ResponseEntity<>(response,HttpStatus.OK);
         }
 
