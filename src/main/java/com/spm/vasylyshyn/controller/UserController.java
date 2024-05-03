@@ -52,7 +52,8 @@ public class UserController {
         List<DeviceDto> deviceDtoList = userService.getDeviceForCurrentUser(principal);
         return new ResponseEntity<>(deviceDtoList,HttpStatus.OK);
     }
-    @PostMapping("/update/optionalInfo")
+
+        @PostMapping("/update/optionalInfo")
     public ResponseEntity<Object> updateOptionalInfoUser(@Valid @RequestBody UpdateOptionalUserInfoDto updateOptionalUserInfoDto, BindingResult bindingResult, Principal principal){
         ResponseEntity<Object> errors = responseErrorValidation.mapValidationService(bindingResult);
         if (!ObjectUtils.isEmpty(errors)) return errors;
