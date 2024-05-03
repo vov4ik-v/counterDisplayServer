@@ -44,8 +44,6 @@ public class Device {
 
 //    private StatisticSettings statisticSettings;
 
-    // TODO: Rename this field
-//    private NeededDataForSendMeasurement neededDataForSendMeasurement;
 
 //    private Regularity regularity;
 
