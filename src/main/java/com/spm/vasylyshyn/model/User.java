@@ -33,7 +33,7 @@ public class User implements UserDetails {
     @Column(length = 3000,nullable = false)
     private String password;
     private String phoneNumber;
-    private String imageUrl; // TODO: Need to set  default url
+    private String imageUrl; // TODO: Need to set default url
     @Embedded
     private Address address;
     private String firstName;
