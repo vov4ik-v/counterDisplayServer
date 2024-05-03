@@ -81,7 +81,7 @@ public class UserService {
         User user = getUserByPrincipal(principal);
         String email  = updateEmailDto.getEmail();
         boolean isPresent = userRepository.findUserByEmail(email).isPresent();
-        if(!isPresent){
+        if (!isPresent){
             user.setEmail(email);
             userRepository.save(user);
             return email;
