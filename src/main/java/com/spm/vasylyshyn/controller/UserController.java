@@ -84,7 +84,6 @@ public class UserController {
         if (!ObjectUtils.isEmpty(errors)) return errors;
         String response = userService.updatePassword(updatePasswordDto,principal);
         return new ResponseEntity<>(response, HttpStatus.OK);
-
     }
 
 
