@@ -20,7 +20,8 @@ public class ExceptionControllerAdvice {
     public final ResponseEntity<String> handlerCustomException(EmailAlreadyExistException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
-    @ExceptionHandler(value = UsernameAlreadyExistException.class)
+
+        @ExceptionHandler(value = UsernameAlreadyExistException.class)
     public final ResponseEntity<String> handlerCustomException(UsernameAlreadyExistException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
