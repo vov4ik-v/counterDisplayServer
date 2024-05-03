@@ -45,7 +45,6 @@ public class Device {
 //    private StatisticSettings statisticSettings;
 
 
-//    private Regularity regularity;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
