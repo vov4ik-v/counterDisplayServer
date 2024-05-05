@@ -160,17 +160,4 @@ public class UserService {
         return devices.stream().map(deviceFacade::deviceToDeviceDTO).collect(Collectors.toList());
     }
 
-    public ApiResponse registerDevice(
-            RegisterDeviceRequest registerDeviceRequest,
-            Principal principal
-    ) {
-        User user = getUserByPrincipal(principal);
-        Device device = deviceRepository.findDeviceBySerialNumber(registerDeviceRequest.getSerialNumber()).orElseThrow(() -> new DeviceHasNotYetBeenCreatedException("Device has not yet been created"));
-        device.setOwner(user);
-        user.getDeviceList().add(device);
-        userRepository.save(user);
-        deviceRepository.save(device);
-        return new ApiResponse(true, "Device added successfully");
-    }
-
 }

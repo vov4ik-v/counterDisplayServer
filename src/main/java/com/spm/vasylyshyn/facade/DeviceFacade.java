@@ -9,7 +9,9 @@ import org.springframework.stereotype.Component;
 public class DeviceFacade {
     public DeviceDto deviceToDeviceDTO(Device device){
         DeviceDto deviceDto = new DeviceDto();
-        deviceDto.setMeasurements(device.getMeasurements());
+        deviceDto.setSerialNumber(device.getSerialNumber());
+        deviceDto.setName(device.getName());
+        deviceDto.setIsCalibrated(device.getIsCalibrated());
         return deviceDto;
     }
 }

@@ -1,5 +1,6 @@
 package com.spm.vasylyshyn.service;
 
+import com.spm.vasylyshyn.exeptions.DeviceAlreadyCreatedException;
 import com.spm.vasylyshyn.exeptions.DeviceNotFoundException;
 import com.spm.vasylyshyn.model.*;
 import com.spm.vasylyshyn.repository.DeviceRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DeviceService {
@@ -26,12 +28,18 @@ public class DeviceService {
 
     public Device registerDevice(RegisterDeviceRequest request, Principal principal) {
         Device device = new Device();
+        Optional<Device> deviceBySerialNumber = deviceRepository.findDeviceBySerialNumber(request.getSerialNumber());
+        if (deviceBySerialNumber.isPresent()){
+            throw new DeviceAlreadyCreatedException("Device with this serial number already created");
+        }
         User user = userService.getCurrentUser(principal);
         device.setSerialNumber(request.getSerialNumber());
         device.setName(request.getName());
+        device.setIsCalibrated(false);
         user.getDeviceList().add(device);
+        Device device1 = deviceRepository.save(device);
         userRepository.save(user);
-        return deviceRepository.save(device);
+        return device1;
     }
 
     public List<Device> getAllDevices() {

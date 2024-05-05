@@ -13,6 +13,12 @@ public class ExceptionControllerAdvice {
     public final ResponseEntity<String> handlerCustomException(UserExistException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(value =
+            DeviceAlreadyCreatedException.class
+    )
+    public final ResponseEntity<String> handlerCustomException(DeviceAlreadyCreatedException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(value =
             DeviceNotFoundException.class
