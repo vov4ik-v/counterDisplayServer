@@ -18,20 +18,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Device {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false,unique = true)
     private Long serialNumber;
-
     @Column(nullable = false)
     private String name;
-
     @Column(nullable = false)
     private Boolean isCalibrated;
-
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -42,7 +37,6 @@ public class Device {
     private List<Measurement> measurements = new ArrayList<>();
 
     @Column(updatable = false)
-
     private LocalDateTime createdDate;
 
     @Embedded

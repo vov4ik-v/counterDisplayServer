@@ -26,15 +26,18 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
     public static final Logger LOG = LoggerFactory.getLogger(UserService.class);
-
-
     private final UserRepository userRepository;
     private final DeviceRepository deviceRepository;
     private final DeviceFacade deviceFacade;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, DeviceRepository deviceRepository, DeviceFacade deviceFacade, BCryptPasswordEncoder passwordEncoder) {
+    public UserService(
+            UserRepository userRepository,
+            DeviceRepository deviceRepository,
+            DeviceFacade deviceFacade,
+            BCryptPasswordEncoder passwordEncoder
+    ) {
         this.userRepository = userRepository;
         this.deviceRepository = deviceRepository;
         this.deviceFacade = deviceFacade;
@@ -45,12 +48,15 @@ public class UserService {
         return userRepository.findAllByOrderByCreatedDateDesc();
     }
 
-    public void createUser(SignupRequest userIn) {
+    public void createUser(
+            SignupRequest userIn
+    ) {
         User user = new User();
         user.setEmail(userIn.getEmail());
         user.setUsername(userIn.getUsername());
         user.setPassword(passwordEncoder.encode(userIn.getPassword()));
         user.getRoles().add(ERole.USER);
+
         try {
             LOG.info("Saving User {}" + userIn.getEmail());
         } catch (Exception e) {
@@ -61,7 +67,10 @@ public class UserService {
     }
 
 
-    public User updateOptionalInfoUser(UpdateOptionalUserInfoDto updateOptionalUserInfoDto, Principal principal) {
+    public User updateOptionalInfoUser(
+            UpdateOptionalUserInfoDto updateOptionalUserInfoDto,
+            Principal principal
+    ) {
         User user = getUserByPrincipal(principal);
         user.setImageUrl(updateOptionalUserInfoDto.getImageUrl());
         user.setPhoneNumber(updateOptionalUserInfoDto.getPhoneNumber());
@@ -71,7 +80,10 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public String updateEmail(UpdateEmailDto updateEmailDto, Principal principal) {
+    public String updateEmail(
+            UpdateEmailDto updateEmailDto,
+            Principal principal
+    ) {
         User user = getUserByPrincipal(principal);
         String email = updateEmailDto.getEmail();
         boolean isPresent = userRepository.findUserByEmail(email).isPresent();
@@ -84,7 +96,10 @@ public class UserService {
 
     }
 
-    public String updateUsername(UpdateUsernameDto updateUsernameDto, Principal principal) {
+    public String updateUsername(
+            UpdateUsernameDto updateUsernameDto,
+            Principal principal
+    ) {
         User user = getUserByPrincipal(principal);
         String username = updateUsernameDto.getUsername();
         boolean isPresent = userRepository.findUserByUsername(username).isPresent();
@@ -96,18 +111,23 @@ public class UserService {
         return username;
     }
 
-    public String updatePassword(UpdatePasswordDto updatePasswordDto, Principal principal) {
+    public String updatePassword(
+            UpdatePasswordDto updatePasswordDto,
+            Principal principal
+    ) {
         User user = getUserByPrincipal(principal);
         boolean isMatchesPassword = isTruePassword(updatePasswordDto, user);
         if (!isMatchesPassword) {
-            throw new OldPasswordIsIncorectException("Passwords didn`t matches");
+            throw new OldPasswordIsIncorrectException("Passwords didn`t matches");
         }
         user.setPassword(passwordEncoder.encode(updatePasswordDto.getNewPassword()));
         return "Password change successfully";
-
     }
 
-    public boolean isTruePassword(UpdatePasswordDto updatePasswordDto, User user) {
+    public boolean isTruePassword(
+            UpdatePasswordDto updatePasswordDto,
+            User user
+    ) {
         if (user != null) {
             return passwordEncoder.matches(user.getPassword(), updatePasswordDto.getCurrentPassword());
         }
@@ -139,7 +159,10 @@ public class UserService {
         return devices.stream().map(deviceFacade::deviceToDeviceDTO).collect(Collectors.toList());
     }
 
-    public ApiResponse registerDevice(RegisterDeviceRequest registerDeviceRequest, Principal principal) {
+    public ApiResponse registerDevice(
+            RegisterDeviceRequest registerDeviceRequest,
+            Principal principal
+    ) {
         User user = getUserByPrincipal(principal);
         Device device = deviceRepository.findDeviceBySerialNumber(registerDeviceRequest.getSerialNumber()).orElseThrow(() -> new DeviceHasNotYetBeenCreatedException("Device has not yet been created"));
         device.setOwner(user);
@@ -148,6 +171,5 @@ public class UserService {
         deviceRepository.save(device);
         return new ApiResponse(true, "Device added successfully");
     }
-
 
 }

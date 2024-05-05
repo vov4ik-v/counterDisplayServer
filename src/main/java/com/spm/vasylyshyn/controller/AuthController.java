@@ -29,15 +29,9 @@ import java.security.Principal;
 @RequestMapping("/api/auth")
 @PreAuthorize("permitAll()")
 public class AuthController {
-
-
-
     private final ResponseErrorValidation responseErrorValidation;
-
     private final UserService userService;
-
     private final AuthenticationManager authenticationManager;
-
     private final JWTTokenProvider jwtTokenProvider;
 
     public AuthController(ResponseErrorValidation responseErrorValidation, UserService userService, AuthenticationManager authenticationManager, JWTTokenProvider jwtTokenProvider) {
@@ -46,18 +40,17 @@ public class AuthController {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
     }
-
-
-
     // TODO: Watch how to work handle error and in case change TokenSuccessResponse to JWTTokenResponse
     @PostMapping("/signin")
-    public ResponseEntity<Object> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult bindingResult){
+    public ResponseEntity<Object> authenticateUser(
+            @Valid @RequestBody LoginRequest loginRequest,
+            BindingResult bindingResult
+    ) {
         ResponseEntity<Object> errors = responseErrorValidation.mapValidationService(bindingResult);
         if (!ObjectUtils.isEmpty(errors)) return errors;
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                loginRequest.getUsername()
-               , loginRequest.getPassword()
-
+                loginRequest.getUsername(),
+                loginRequest.getPassword()
         ));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = SecurityConstants.TOKEN_PREFIX + jwtTokenProvider.generateToken(authentication);
@@ -65,16 +58,20 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<Object> registerUser(@Valid @RequestBody SignupRequest signupRequest, BindingResult bindingResult) throws IOException {
+    public ResponseEntity<Object> registerUser(
+            @Valid @RequestBody SignupRequest signupRequest,
+            BindingResult bindingResult
+    ) throws IOException {
         ResponseEntity<Object> errors = responseErrorValidation.mapValidationService(bindingResult);
         if (!ObjectUtils.isEmpty(errors)) return errors;
         userService.createUser(signupRequest);
         return ResponseEntity.ok(new MessageResponse("User registreted successfully"));
-
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(Principal principal){
+    public ResponseEntity<String> logout(
+            Principal principal
+    ) {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

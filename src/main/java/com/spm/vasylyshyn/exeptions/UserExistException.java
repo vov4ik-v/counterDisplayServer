@@ -8,7 +8,5 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class UserExistException extends RuntimeException {
     public UserExistException(String message){
         super(message);
-
-
     }
 }

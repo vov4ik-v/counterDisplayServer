@@ -12,8 +12,8 @@ import javax.persistence.Embedded;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PersonalAccount {
-
     @Embedded
     private Address address;
+
     private String phoneNumber;
 }

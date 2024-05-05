@@ -22,15 +22,18 @@ public class MeasurementController {
     }
 
     @GetMapping("getMeasurementsByDeviceNumber/{serialNumber}")
-    public ResponseEntity<List<MeasurementDto>> getMeasurementsByDeviceNumber(@PathVariable("serialNumber") Long serialNumber){
+    public ResponseEntity<List<MeasurementDto>> getMeasurementsByDeviceNumber(
+            @PathVariable("serialNumber") Long serialNumber
+    ) {
         List<MeasurementDto> measurementsDto = measurementService.getMeasurementsDtoByDeviceNumber(serialNumber);
         return new ResponseEntity<>(measurementsDto,HttpStatus.OK);
     }
 
 
     @GetMapping("getLastCollectedMeasurement/{serialNumber}")
-    public ResponseEntity<MeasurementDto> getLastCollectedMeasurement(@PathVariable("serialNumber") Long serialNumber){
-
+    public ResponseEntity<MeasurementDto> getLastCollectedMeasurement(
+            @PathVariable("serialNumber") Long serialNumber
+    ) {
         return new ResponseEntity<>(measurementService.getLastCollectedMeasurement(serialNumber),HttpStatus.OK);
     }
 
@@ -38,14 +41,15 @@ public class MeasurementController {
     public ResponseEntity<List<Measurement>> getAllDevices(){
         List<Measurement> measurements = measurementService.getAllDisplays();
         return new ResponseEntity<>(measurements,HttpStatus.OK);
-
     }
 
     @PostMapping("addmeasurement")
-    public ResponseEntity<ApiResponse> addmeasurement(@RequestBody MeasurementDto measurementDto, @RequestParam("device_id") Long deviceId){
+    public ResponseEntity<ApiResponse> addMeasurement(
+            @RequestBody MeasurementDto measurementDto,
+            @RequestParam("device_id") Long deviceId
+    ) {
         measurementService.addMeasurement(measurementDto,deviceId);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
 
 }

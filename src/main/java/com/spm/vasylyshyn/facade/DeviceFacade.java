@@ -7,13 +7,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DeviceFacade {
-
     public DeviceDto deviceToDeviceDTO(Device device){
         DeviceDto deviceDto = new DeviceDto();
         deviceDto.setMeasurements(device.getMeasurements());
-
-
-
         return deviceDto;
     }
 }

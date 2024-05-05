@@ -17,48 +17,50 @@ import java.security.Principal;
 @RequestMapping("/api/device/")
 // TODO: Update all response from Device to DeviceDTO
 public class DeviceController {
-
     private final DeviceService deviceService;
-
     public DeviceController(DeviceService deviceService) {
         this.deviceService = deviceService;
     }
 
     @GetMapping("getDeviceByserialNumber/{serialNumber}")
-    public ResponseEntity<Device> getDeviceByNumber(@PathVariable("serialNumber") Long serialNumber){
+    public ResponseEntity<Device> getDeviceByNumber(
+            @PathVariable("serialNumber") Long serialNumber
+    ) {
         Device device = deviceService.getDeviceBySerialNumber(serialNumber);
         return new ResponseEntity<>(device,HttpStatus.OK);
-
     }
 
-
-//    @PostMapping("updateDevice/{serialNumber}")
-//    public ResponseEntity<Device> updateDevice(@PathVariable("serialNumber") Long serialNumber, @RequestBody UpdateDeviceRequest updateDeviceRequest){
-//        Device updatedDevice = deviceService.updateDevice(serialNumber,updateDeviceRequest);
-//        return new ResponseEntity<>(updatedDevice,HttpStatus.OK);
-//    }
-
-
     @PostMapping("calibrateDevice/{serialNumber}")
-    public ResponseEntity<MessageResponse> calibrateDevice(@PathVariable("serialNumber") Long serialNumber){
+    public ResponseEntity<MessageResponse> calibrateDevice(
+            @PathVariable("serialNumber") Long serialNumber
+    ) {
         deviceService.calibrateDevice(serialNumber);
         return new ResponseEntity<>(new MessageResponse("Device calibrated successfully"),HttpStatus.CREATED);
     }
+
     @PostMapping("setNeededDataForSendMeasurements/{serialNumber}")
-    public ResponseEntity<MessageResponse> setNeededDataForSendMeasurements(@PathVariable("serialNumber") Long serialNumber, @RequestBody NeededDataForSendMeasurementsRequest neededDataForSendMeasurementsRequest){
+    public ResponseEntity<MessageResponse> setNeededDataForSendMeasurements(
+            @PathVariable("serialNumber") Long serialNumber,
+            @RequestBody NeededDataForSendMeasurementsRequest neededDataForSendMeasurementsRequest
+    ) {
         deviceService.setNeededDataForSendMeasurementsRequest(serialNumber,neededDataForSendMeasurementsRequest);
         return new ResponseEntity<>(new MessageResponse("Needed data added successfully"),HttpStatus.CREATED);
     }
+
     @PostMapping("setStatisticSettings/{serialNumber}")
-    public ResponseEntity<MessageResponse> setStatisticSettings(@PathVariable("serialNumber") Long serialNumber, @RequestBody StatisticSettingsRequest statisticSettingsRequest){
+    public ResponseEntity<MessageResponse> setStatisticSettings(
+            @PathVariable("serialNumber") Long serialNumber,
+            @RequestBody StatisticSettingsRequest statisticSettingsRequest
+    ) {
         deviceService.setStatisticSettings(serialNumber,statisticSettingsRequest);
         return new ResponseEntity<>(new MessageResponse("Statistic settings added successfully"),HttpStatus.CREATED);
     }
 
-
-
     @PostMapping("register")
-    public ResponseEntity<Device> registerDevice(@RequestBody RegisterDeviceRequest request, Principal principal){
+    public ResponseEntity<Device> registerDevice(
+            @RequestBody RegisterDeviceRequest request,
+            Principal principal
+    ) {
         Device createdDevice = deviceService.registerDevice(request,principal);
         return new ResponseEntity<>(createdDevice,HttpStatus.CREATED);
     }

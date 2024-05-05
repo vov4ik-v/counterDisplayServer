@@ -50,13 +50,6 @@ public class User implements UserDetails {
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
 
-//    @NotNull
-//    @Enumerated(EnumType.STRING)
-//    private AuthProvider provider;
-//
-//    private String providerId;
-
-
     @Column(updatable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     @JsonDeserialize(using = LocalDateDeserializer.class)

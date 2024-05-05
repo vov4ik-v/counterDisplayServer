@@ -12,7 +12,6 @@ import javax.persistence.Enumerated;
 @Data
 @Embeddable
 public class NeededDataForSendMeasurement {
-
     @Embedded
     private TelegramSentData telegramSentData;
 

@@ -37,15 +37,6 @@ public class DeviceService {
     public List<Device> getAllDevices() {
         return deviceRepository.findAll();
     }
-
-//    public Device updateDevice(Long serialNumber, UpdateDeviceRequest updateDeviceRequest) {
-//        Device device = deviceRepository.findDeviceBySerialNumber(serialNumber).orElse(null);
-//        device.setCantoraName(updateDeviceRequest.getCantoraName());
-//        device.setCounterType(updateDeviceRequest.getCounterType());
-//        deviceRepository.save(device);
-//        return device;
-//    }
-
     public Device getDeviceBySerialNumber(Long serialNumber) {
         return deviceRepository.findDeviceBySerialNumber(serialNumber).orElseThrow();
     }
@@ -56,8 +47,12 @@ public class DeviceService {
         deviceRepository.save(device);
     }
 
-    public void setNeededDataForSendMeasurementsRequest(Long serialNumber, NeededDataForSendMeasurementsRequest neededDataForSendMeasurementsRequest) {
-        Device device = deviceRepository.findDeviceBySerialNumber(serialNumber).orElseThrow(() -> new DeviceNotFoundException("Device with serial number: " + serialNumber + " not found" ));
+    public void setNeededDataForSendMeasurementsRequest(
+            Long serialNumber,
+            NeededDataForSendMeasurementsRequest neededDataForSendMeasurementsRequest
+    ) {
+        Device device = deviceRepository.findDeviceBySerialNumber(serialNumber).orElseThrow(
+                () -> new DeviceNotFoundException("Device with serial number: " + serialNumber + " not found" ));
         NeededDataForSendMeasurement neededDataForSendMeasurement = new NeededDataForSendMeasurement();
         TelegramSentData telegramSentData = new TelegramSentData();
         PersonalAccount personalAccount =new PersonalAccount();
@@ -74,8 +69,12 @@ public class DeviceService {
 
     }
 
-    public void setStatisticSettings(Long serialNumber, StatisticSettingsRequest statisticSettingsRequest) {
-        Device device = deviceRepository.findDeviceBySerialNumber(serialNumber).orElseThrow(() -> new DeviceNotFoundException("Device with serial number: " + serialNumber + " not found" ));
+    public void setStatisticSettings(
+            Long serialNumber,
+            StatisticSettingsRequest statisticSettingsRequest
+    ) {
+        Device device = deviceRepository.findDeviceBySerialNumber(serialNumber).orElseThrow(
+                () -> new DeviceNotFoundException("Device with serial number: " + serialNumber + " not found" ));
         StatisticSettings statisticSettings = new StatisticSettings();
         statisticSettings.setStatisticFrequency(statisticSettingsRequest.getStatisticFrequency());
         statisticSettings.setTariff(statisticSettingsRequest.getTariff());

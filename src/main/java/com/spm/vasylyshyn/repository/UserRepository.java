@@ -14,21 +14,14 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface UserRepository extends JpaRepository<User, Long> {
-
-
     Optional<User> findUserByUsername(String username);
     Optional<User> findUserByEmail(String email);
-
     @Query("select new com.spm.vasylyshyn.dto.user.UserDto(u.id, u.username, u.email, u.phoneNumber, u.imageUrl, u.firstName, u.lastName, u.address) from User as u where u.id = :id")
     Optional<UserDto> findDtoUserById(@Param("id") Long id);
-
     @Query("select new com.spm.vasylyshyn.dto.user.UserDto(u.id, u.username, u.email, u.phoneNumber, u.imageUrl, u.firstName, u.lastName, u.address) from User as u where u.username = :username")
     Optional<UserDto> findUserDtoByUsername(@Param("username") String username);
-
-
     @Query("select new com.spm.vasylyshyn.dto.user.UserDto(u.id, u.username, u.email, u.phoneNumber, u.imageUrl, u.firstName, u.lastName, u.address) from User as u")
     Optional<List<UserDto>> findAllUsersDto();
-
     List<User> findAllByOrderByCreatedDateDesc();
     Optional<User> findUserById(Long id);
 
