@@ -13,5 +13,6 @@ import java.time.LocalDateTime;
 public class MeasurementDto {
     private Long id;
     private Long measurement;
+    private Boolean isSubmitted;
     private LocalDateTime createdDate;
 }

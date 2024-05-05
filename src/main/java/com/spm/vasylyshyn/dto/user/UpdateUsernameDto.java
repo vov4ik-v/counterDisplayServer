@@ -1,4 +1,4 @@
-package com.spm.vasylyshyn.request;
+package com.spm.vasylyshyn.dto.user;
 
 
 import lombok.AllArgsConstructor;
@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterDeviceRequest {
-    private Long serialNumber;
-    private String name;
+public class UpdateUsernameDto {
+    private String username;
 }

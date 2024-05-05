@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterDeviceRequest {
-    private Long serialNumber;
-    private String name;
+public class StatisticSettingsRequest {
+    private Long statisticFrequency;
+    private Float tariff;
 }

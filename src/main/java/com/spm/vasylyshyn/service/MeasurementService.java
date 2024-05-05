@@ -8,6 +8,7 @@ import com.spm.vasylyshyn.repository.MeasurementRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -15,12 +16,18 @@ public class MeasurementService {
     private final MeasurementRepository measurementRepository;
     private final DeviceRepository deviceRepository;
 
-    public MeasurementService(MeasurementRepository measurementRepository, DeviceRepository deviceRepository) {
+    public MeasurementService(
+            MeasurementRepository measurementRepository,
+            DeviceRepository deviceRepository
+    ) {
         this.measurementRepository = measurementRepository;
         this.deviceRepository = deviceRepository;
     }
 
-    public void addMeasurement(MeasurementDto measurementDto, Long deviceId){
+    public void addMeasurement(
+            MeasurementDto measurementDto,
+            Long deviceId
+    ) {
         Measurement measurement = new Measurement();
         Device device = deviceRepository.findById(deviceId).orElse(null);
         measurement.setMeasurement(measurementDto.getMeasurement());
@@ -28,22 +35,18 @@ public class MeasurementService {
         measurementRepository.save(measurement);
     }
 
-    public List<MeasurementDto> getMeasurementsDtoByDeviceNumber(Long deviceNumber) {
-        Device device = deviceRepository.findDeviceByNumberOfDevice(deviceNumber).orElse(null);
-        return measurementRepository.findMeasurementsDtoByDevice(device).orElse(null);
+    public List<MeasurementDto> getMeasurementsDtoByDeviceNumber(Long serialNumber) {
+        Device device = deviceRepository.findDeviceBySerialNumber(serialNumber).orElse(null);
+        return measurementRepository.findMeasurementsDtoByDevice(device).orElse(Collections.emptyList());
     }
 
     public List<Measurement> getAllDisplays() {
         return measurementRepository.findAll();
     }
 
-    public MeasurementDto getLastCollectedMeasurement(Long deviceNumber) {
-        Device device = deviceRepository.findDeviceByNumberOfDevice(deviceNumber).orElseThrow();
-        return measurementRepository.findDto(device).orElseThrow(()-> new RuntimeException(""));
+    public MeasurementDto getLastCollectedMeasurement(Long serialNumber) {
+        Device device = deviceRepository.findDeviceBySerialNumber(serialNumber).orElseThrow();
+        return measurementRepository.findDto(device).orElseThrow(() -> new RuntimeException(""));
     }
 
-    public List<Measurement> findAllmeasurementsInRange(Long deviceNumber,LocalDateTime startRange,LocalDateTime endRange) {
-        Device device = deviceRepository.findDeviceByNumberOfDevice(deviceNumber).orElseThrow();
-        return measurementRepository.findMeasurementsByDeviceAndCreatedDateGreaterThanEqualAndCreatedDateLessThanEqual(device,startRange,endRange);
-    }
 }

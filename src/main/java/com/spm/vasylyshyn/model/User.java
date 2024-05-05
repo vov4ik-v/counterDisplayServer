@@ -12,13 +12,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 
 @Entity
 @Data
-
 @NoArgsConstructor
 public class User implements UserDetails {
     @Id
@@ -28,35 +30,25 @@ public class User implements UserDetails {
     private String username;
     @Column(nullable = false)
     private String email;
-    private String firstName;
-    private String lastName;
-    private String phoneNumber;
-    private Integer avatarId;
-    @Column(length = 3000)
+    @Column(length = 3000,nullable = false)
     private String password;
-
-
+    private String phoneNumber;
+    @Column(columnDefinition = "VARCHAR(255) default 'https://w7.pngwing.com/pngs/612/280/png-transparent-customer-user-userphoto-account-person-glyphs-icon.png'")
+    private String imageUrl; // TODO: Need to set  default url
     @Embedded
     private Address address;
+    private String firstName;
+    private String lastName;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "owner")
+    private List<Device> deviceList;
 
     @ElementCollection(targetClass = ERole.class,fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     private Set<ERole> roles = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "owner")
-    private List<Device> deviceList;
-
-    private String imageUrl;
-
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
-
-//    @NotNull
-//    @Enumerated(EnumType.STRING)
-//    private AuthProvider provider;
-//
-//    private String providerId;
-
 
     @Column(updatable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
@@ -76,13 +68,6 @@ public class User implements UserDetails {
         this.password = password;
         this.authorities = authorities;
     }
-//    public void addUserToFriends(User friend){
-//        friends.add(friend);
-//    }
-//    public void removeUserFromFriends(User friend){
-//        friends.remove(friend);
-//    }
-
     //Security
     @Override
     public String getPassword(){
