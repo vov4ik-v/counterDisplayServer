@@ -58,6 +58,7 @@ public class UserService {
         user.getRoles().add(ERole.USER);
 
         try {
+            userRepository.save(user);
             LOG.info("Saving User {}" + userIn.getEmail());
         } catch (Exception e) {
             LOG.error("Error during registration. {}" + e.getMessage());
