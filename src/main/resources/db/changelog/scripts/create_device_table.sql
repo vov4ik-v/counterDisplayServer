@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS device
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     serial_number BIGINT UNIQUE NOT NULL,
     name VARCHAR(255) NOT NULL,
-    is_calibrated BOOLEAN NOT NULL,
+    is_calibrated BOOLEAN NOT NULL DEFAULT FALSE,
     user_id BIGINT,
     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     statistic_frequency BIGINT,

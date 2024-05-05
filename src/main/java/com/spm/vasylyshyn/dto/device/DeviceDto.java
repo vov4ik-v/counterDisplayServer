@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,12 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeviceDto {
-    private Long numberOfDevice;
-    private String cantoraName;
-    private List<Measurement> measurements;
-    private String address;
-    private Long frequency;
-    private CounterType counterType;
-    private Integer price;
-    private LocalDateTime createdDate;
+    private Long serialNumber;
+    private String name;
+    private Boolean isCalibrated;
 }
