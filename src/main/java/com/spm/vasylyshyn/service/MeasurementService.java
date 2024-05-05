@@ -8,6 +8,7 @@ import com.spm.vasylyshyn.repository.MeasurementRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -20,7 +21,7 @@ public class MeasurementService {
         this.deviceRepository = deviceRepository;
     }
 
-    public void addMeasurement(MeasurementDto measurementDto, Long deviceId){
+    public void addMeasurement(MeasurementDto measurementDto, Long deviceId) {
         Measurement measurement = new Measurement();
         Device device = deviceRepository.findById(deviceId).orElse(null);
         measurement.setMeasurement(measurementDto.getMeasurement());
@@ -30,7 +31,7 @@ public class MeasurementService {
 
     public List<MeasurementDto> getMeasurementsDtoByDeviceNumber(Long serialNumber) {
         Device device = deviceRepository.findDeviceBySerialNumber(serialNumber).orElse(null);
-        return measurementRepository.findMeasurementsDtoByDevice(device).orElse(null);
+        return measurementRepository.findMeasurementsDtoByDevice(device).orElse(Collections.emptyList());
     }
 
     public List<Measurement> getAllDisplays() {
@@ -39,11 +40,7 @@ public class MeasurementService {
 
     public MeasurementDto getLastCollectedMeasurement(Long serialNumber) {
         Device device = deviceRepository.findDeviceBySerialNumber(serialNumber).orElseThrow();
-        return measurementRepository.findDto(device).orElseThrow(()-> new RuntimeException(""));
+        return measurementRepository.findDto(device).orElseThrow(() -> new RuntimeException(""));
     }
 
-    public List<Measurement> findAllmeasurementsInRange(Long serialNumber,LocalDateTime startRange,LocalDateTime endRange) {
-        Device device = deviceRepository.findDeviceBySerialNumber(serialNumber).orElseThrow();
-        return measurementRepository.findMeasurementsByDeviceAndCreatedDateGreaterThanEqualAndCreatedDateLessThanEqual(device,startRange,endRange);
-    }
 }

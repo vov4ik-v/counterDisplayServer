@@ -1,9 +1,8 @@
 package com.spm.vasylyshyn.service;
 
 
-
-import com.spm.vasylyshyn.repository.UserRepository;
 import com.spm.vasylyshyn.model.User;
+import com.spm.vasylyshyn.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

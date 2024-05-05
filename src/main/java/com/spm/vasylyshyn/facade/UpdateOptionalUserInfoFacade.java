@@ -2,7 +2,6 @@ package com.spm.vasylyshyn.facade;
 
 
 import com.spm.vasylyshyn.dto.user.UpdateOptionalUserInfoDto;
-import com.spm.vasylyshyn.dto.user.UserDto;
 import com.spm.vasylyshyn.model.User;
 import org.springframework.stereotype.Component;
 

@@ -1,15 +1,14 @@
 package com.spm.vasylyshyn.controller;
 
 
-
+import com.spm.vasylyshyn.dto.device.DeviceDto;
 import com.spm.vasylyshyn.dto.user.*;
-import com.spm.vasylyshyn.response.ApiResponse;
-import com.spm.vasylyshyn.dto.DeviceDto;
-import com.spm.vasylyshyn.request.RegisterDeviceRequest;
-import com.spm.vasylyshyn.validations.ResponseErrorValidation;
 import com.spm.vasylyshyn.facade.UpdateOptionalUserInfoFacade;
 import com.spm.vasylyshyn.model.User;
+import com.spm.vasylyshyn.request.RegisterDeviceRequest;
+import com.spm.vasylyshyn.response.ApiResponse;
 import com.spm.vasylyshyn.service.UserService;
+import com.spm.vasylyshyn.validations.ResponseErrorValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,13 +46,15 @@ public class UserController {
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
+
+//    TODO:Refactor it
     @GetMapping("/getDevicesForCurrentUser")
     public ResponseEntity<List<DeviceDto>> getDevicesForCurrentUser(Principal principal){
         List<DeviceDto> deviceDtoList = userService.getDeviceForCurrentUser(principal);
         return new ResponseEntity<>(deviceDtoList,HttpStatus.OK);
     }
 
-        @PostMapping("/update/optionalInfo")
+    @PostMapping("/update/optionalInfo")
     public ResponseEntity<Object> updateOptionalInfoUser(@Valid @RequestBody UpdateOptionalUserInfoDto updateOptionalUserInfoDto, BindingResult bindingResult, Principal principal){
         ResponseEntity<Object> errors = responseErrorValidation.mapValidationService(bindingResult);
         if (!ObjectUtils.isEmpty(errors)) return errors;
@@ -78,21 +79,22 @@ public class UserController {
         return new ResponseEntity<>(username, HttpStatus.OK);
 
     }
+
     @PostMapping("/update/password")
     public ResponseEntity<Object> updatePassword(@Valid@RequestBody UpdatePasswordDto updatePasswordDto, BindingResult bindingResult, Principal principal){
         ResponseEntity<Object> errors = responseErrorValidation.mapValidationService(bindingResult);
         if (!ObjectUtils.isEmpty(errors)) return errors;
         String response = userService.updatePassword(updatePasswordDto,principal);
         return new ResponseEntity<>(response, HttpStatus.OK);
+
     }
 
     @PostMapping("/addDeviceToUser")
         public ResponseEntity<ApiResponse> addDeviceToUser(@RequestBody RegisterDeviceRequest registerDeviceRequest, Principal principal){
-           ApiResponse response = userService.registerDevice(registerDeviceRequest, principal);
+           ApiResponse response =  userService.registerDevice(registerDeviceRequest, principal);
            return new ResponseEntity<>(response,HttpStatus.OK);
+
         }
-
-
 
 }
 

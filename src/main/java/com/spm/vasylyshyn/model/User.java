@@ -13,10 +13,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.*;
-
-
-
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -33,7 +33,8 @@ public class User implements UserDetails {
     @Column(length = 3000,nullable = false)
     private String password;
     private String phoneNumber;
-    private String imageUrl; // TODO: Need to set default url
+    @Column(columnDefinition = "VARCHAR(255) default 'https://w7.pngwing.com/pngs/612/280/png-transparent-customer-user-userphoto-account-person-glyphs-icon.png'")
+    private String imageUrl; // TODO: Need to set  default url
     @Embedded
     private Address address;
     private String firstName;

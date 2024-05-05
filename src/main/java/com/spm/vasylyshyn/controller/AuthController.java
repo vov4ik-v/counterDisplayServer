@@ -1,16 +1,14 @@
 package com.spm.vasylyshyn.controller;
 
 
-import com.spm.vasylyshyn.request.LoginRequest;
-import com.spm.vasylyshyn.request.SignupRequest;
-import com.spm.vasylyshyn.validations.ResponseErrorValidation;
-import com.spm.vasylyshyn.model.User;
 import com.spm.vasylyshyn.payload.JWTTokenSuccessResponse;
 import com.spm.vasylyshyn.payload.MessageResponse;
-
+import com.spm.vasylyshyn.request.LoginRequest;
+import com.spm.vasylyshyn.request.SignupRequest;
 import com.spm.vasylyshyn.security.JWTTokenProvider;
 import com.spm.vasylyshyn.security.SecurityConstants;
 import com.spm.vasylyshyn.service.UserService;
+import com.spm.vasylyshyn.validations.ResponseErrorValidation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,9 +22,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.Principal;
 
 @CrossOrigin

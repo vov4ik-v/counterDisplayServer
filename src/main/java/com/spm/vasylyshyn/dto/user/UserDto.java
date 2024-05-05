@@ -4,10 +4,8 @@ package com.spm.vasylyshyn.dto.user;
 import com.spm.vasylyshyn.annotations.ValidPhoneNumber;
 import com.spm.vasylyshyn.model.Address;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
 
 
 @Data
